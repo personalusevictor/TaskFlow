@@ -56,7 +56,7 @@ public class Project {
         return this.tasks.stream().filter(t -> t.getState() == state).toList();
     }
 
-    public List<Tarea> getPendingTasks() {
+    public List<Tarea> getInProgressTasks() {
         return getTasksByState(State.IN_PROGRESS);
     }
 
@@ -64,12 +64,16 @@ public class Project {
         return getTasksByState(State.COMPLETED);
     }
 
+    public List<Tarea> getExpiredTasks() {
+        return getTasksByState(State.EXPIRED);
+    }
+
     public double getProgress() {
         if (this.tasks.isEmpty()) {
             return 0;
         }
 
-        return (getCompletedTasks().size() * 100) / this.tasks.size();
+        return (double) (getCompletedTasks().size() * 100) / this.tasks.size();
     }
 
     public int getID() {

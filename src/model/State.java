@@ -1,5 +1,5 @@
 package model;
 
 public enum State {
-	COMPLETED, IN_PROGRESS, FINISHED
+    COMPLETED, IN_PROGRESS, EXPIRED
 }
