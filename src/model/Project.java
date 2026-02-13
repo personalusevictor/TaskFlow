@@ -17,7 +17,7 @@ public class Project {
     private String name;
     private String description;
     private LocalDate creationDate;
-    private List<Tarea> tasks;
+    private List<Task> tasks;
 
     public Project(String name, String description) {
         this.ID = ++proyectCount;
@@ -32,23 +32,23 @@ public class Project {
         this(name, null);
     }
 
-    public boolean addTask(Tarea task) {
+    public boolean addTask(Task task) {
         return this.tasks.add(task);
     }
 
-    public void addTask(Tarea task, int index) {
+    public void addTask(Task task, int index) {
         this.tasks.add(index, task);
     }
 
-    public boolean removeTask(Tarea task) {
+    public boolean removeTask(Task task) {
         return this.tasks.remove(task);
     }
 
-    public Tarea removeTask(int index) {
+    public Task removeTask(int index) {
         return this.tasks.remove(index);
     }
 
-    public List<Tarea> getTasksByState(State state) {
+    public List<Task> getTasksByState(State state) {
         if (state == null) {
             throw new IllegalArgumentException("El campo 'state' no puede estar vacio");
         }
@@ -56,15 +56,15 @@ public class Project {
         return this.tasks.stream().filter(t -> t.getState() == state).toList();
     }
 
-    public List<Tarea> getInProgressTasks() {
+    public List<Task> getInProgressTasks() {
         return getTasksByState(State.IN_PROGRESS);
     }
 
-    public List<Tarea> getCompletedTasks() {
+    public List<Task> getCompletedTasks() {
         return getTasksByState(State.COMPLETED);
     }
 
-    public List<Tarea> getExpiredTasks() {
+    public List<Task> getExpiredTasks() {
         return getTasksByState(State.EXPIRED);
     }
 
@@ -103,7 +103,7 @@ public class Project {
         return creationDate;
     }
 
-    public List<Tarea> getTasks() {
+    public List<Task> getTasks() {
         return List.copyOf(this.tasks);
     }
 
