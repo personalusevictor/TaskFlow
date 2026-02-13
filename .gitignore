@@ -1,0 +1,33 @@
+# Compilados de Java
+*.class
+
+# Logs
+*.log
+
+# Ficheros temporales del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos generados por VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Carpetas de binarios (si las usáis)
+bin/
+out/
+target/
+build/
+
+# Archivos de configuración del IDE (por si abrís el repo con otros)
+*.iml
+.idea/
+
+# Backup / temporales de editores
+*~
+*.swp
+*.swo
+
+# Configuración específica de OS / editor
+.vscode-test/
