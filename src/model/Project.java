@@ -16,7 +16,7 @@ public class Project {
     private final int ID;
     private String name;
     private String description;
-    private LocalDate creationDate;
+    private final LocalDate creationDate;
     private List<Task> tasks;
 
     public Project(String name, String description) {
