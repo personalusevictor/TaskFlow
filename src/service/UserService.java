@@ -5,6 +5,9 @@ import java.util.List;
 import model.User;
 
 public class UserService {
+    /**
+     * Atributos
+     */
     private List<User> users;
 
     /**
