@@ -12,16 +12,16 @@ public class User {
     private static int userCount = 0;
 
     // Atributos no estaticos
-    private final int ID;
+    private final int Id;
     private String username;
     private String email;
     private String hashPassword;
     private List<Project> projects;
 
     /* CONSTRUCTOR */
-    
+
     public User(String username, String email, String password) {
-        this.ID = ++userCount;
+        this.Id = ++userCount;
         setUsername(username);
         setEmail(email);
         setPassword(password);
@@ -30,8 +30,8 @@ public class User {
 
     /* GETTERS Y SETTERS */
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return Id;
     }
 
     public String getUsername() {
@@ -74,6 +74,7 @@ public class User {
 
     /**
      * Obtiene una copia inmutable de la lista de proyectos
+     * 
      * @return Lista de proyectos del usuario
      */
     public List<Project> getProjects() {
@@ -84,6 +85,7 @@ public class User {
 
     /**
      * Verifica si la contraseña proporcionada coincide con el hash almacenado
+     * 
      * @param password Contraseña a verificar
      * @return true si la contraseña es correcta, false en caso contrario
      */
@@ -96,6 +98,7 @@ public class User {
 
     /**
      * Añade un proyecto a la lista de proyectos del usuario
+     * 
      * @param project Proyecto a añadir
      * @return true si se añadió correctamente
      */
@@ -108,6 +111,7 @@ public class User {
 
     /**
      * Elimina un proyecto de la lista
+     * 
      * @param project Proyecto a eliminar
      * @return true si se eliminó correctamente
      */
@@ -117,6 +121,7 @@ public class User {
 
     /**
      * Elimina un proyecto por su índice
+     * 
      * @param index Índice del proyecto
      * @return El proyecto eliminado
      */
@@ -125,40 +130,43 @@ public class User {
     }
 
     /**
-     * Obtiene un proyecto por su ID
-     * @param projectId ID del proyecto
+     * Obtiene un proyecto por su Id
+     * 
+     * @param projectId Id del proyecto
      * @return El proyecto encontrado o null si no existe
      */
     public Project getProjectById(int projectId) {
         return this.projects.stream()
-            .filter(p -> p.getID() == projectId)
-            .findFirst()
-            .orElse(null);
+                .filter(p -> p.getId() == projectId)
+                .findFirst()
+                .orElse(null);
     }
 
     /**
      * Obtiene todas las tareas de todos los proyectos del usuario
+     * 
      * @return Lista con todas las tareas
      */
     public List<Task> getAllTasks() {
         return this.projects.stream()
-            .flatMap(p -> p.getTasks().stream())
-            .toList();
+                .flatMap(p -> p.getTasks().stream())
+                .toList();
     }
 
     /**
      * Obtiene el progreso global de todos los proyectos
+     * 
      * @return Porcentaje de progreso promedio (0-100)
      */
     public double getGlobalProgress() {
         if (this.projects.isEmpty()) {
             return 0;
         }
-        
+
         double sum = this.projects.stream()
-            .mapToDouble(Project::getProgress)
-            .sum();
-        
+                .mapToDouble(Project::getProgress)
+                .sum();
+
         return sum / this.projects.size();
     }
 
@@ -173,15 +181,15 @@ public class User {
 
     @Override
     public String toString() {
-        return String.format("ID: %d | Username: %s | Email: %s | Projects: %d",
-                this.ID, this.username, this.email, this.projects.size());
+        return String.format("Id: %d | Username: %s | Email: %s | Projects: %d",
+                this.Id, this.username, this.email, this.projects.size());
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ID;
+        result = prime * result + Id;
         result = prime * result + ((username == null) ? 0 : username.hashCode());
         result = prime * result + ((email == null) ? 0 : email.hashCode());
         result = prime * result + ((hashPassword == null) ? 0 : hashPassword.hashCode());
@@ -197,7 +205,7 @@ public class User {
         if (getClass() != obj.getClass())
             return false;
         User other = (User) obj;
-        if (ID != other.ID)
+        if (Id != other.Id)
             return false;
         if (username == null) {
             if (other.username != null)
