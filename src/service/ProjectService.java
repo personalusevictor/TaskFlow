@@ -1,14 +1,15 @@
 package service;
 
+import java.util.ArrayList;
 import java.util.List;
-
 import model.Project;
 import model.Task;
 
 public class ProjectService {
     private List<Project> projects;
 
-    private ProjectService() {
+    public ProjectService() {
+        this.projects = new ArrayList<>();
     }
 
     public Project createProject(String name, String description) {

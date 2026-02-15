@@ -20,7 +20,7 @@ public class Project {
     private List<Task> tasks;
 
     public Project(String name, String description) {
-        this.Id = ++proyectCount;
+        this.Id = ++projectCount;
         this.name = name;
         this.description = description;
         this.creationDate = LocalDate.now();

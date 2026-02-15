@@ -1,6 +1,7 @@
 package service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import model.Priority;
@@ -8,10 +9,11 @@ import model.State;
 import model.Task;
 
 public class TaskService {
-    private TaskService() {
-    }
-
     private List<Task> tasks;
+
+    public TaskService() {
+        this.tasks = new ArrayList<>();
+    }
 
     public Task createTask(String title, String description, Priority priority, LocalDate dateDeadline) {
         Task task = Task.builder(title).description(description).priority(priority).deadline(dateDeadline).build();

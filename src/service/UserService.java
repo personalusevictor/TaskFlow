@@ -5,10 +5,12 @@ import java.util.List;
 import model.User;
 
 public class UserService {
-    private List<User> users = new ArrayList<>();
-    private User actualUser = null;
+    private List<User> users;
+    private User actualUser;
 
-    private UserService() {
+    public UserService() {
+        this.users = new ArrayList<>();
+        this.actualUser = null;
     }
 
     public boolean registerUser(String username, String email, String password) {
