@@ -28,6 +28,14 @@ public class User {
         this.projects = new ArrayList<>();
     }
 
+    public User(User actualUser) {
+        this.Id = actualUser.Id;
+        setUsername(actualUser.email);
+        setEmail(actualUser.email);
+        this.hashPassword = actualUser.hashPassword;
+        this.projects = List.copyOf(actualUser.projects);
+    }
+
     /* GETTERS Y SETTERS */
 
     public int getId() {
@@ -171,14 +179,6 @@ public class User {
     }
 
     /* MÉTODOS AUXILIARES */
-
-    /**
-     * Resetea el contador de usuarios (útil para testing)
-     */
-    public static void resetCounter() {
-        userCount = 0;
-    }
-
     @Override
     public String toString() {
         return String.format("Id: %d | Username: %s | Email: %s | Projects: %d",
@@ -190,9 +190,6 @@ public class User {
         final int prime = 31;
         int result = 1;
         result = prime * result + Id;
-        result = prime * result + ((username == null) ? 0 : username.hashCode());
-        result = prime * result + ((email == null) ? 0 : email.hashCode());
-        result = prime * result + ((hashPassword == null) ? 0 : hashPassword.hashCode());
         return result;
     }
 
@@ -207,21 +204,7 @@ public class User {
         User other = (User) obj;
         if (Id != other.Id)
             return false;
-        if (username == null) {
-            if (other.username != null)
-                return false;
-        } else if (!username.equals(other.username))
-            return false;
-        if (email == null) {
-            if (other.email != null)
-                return false;
-        } else if (!email.equals(other.email))
-            return false;
-        if (hashPassword == null) {
-            if (other.hashPassword != null)
-                return false;
-        } else if (!hashPassword.equals(other.hashPassword))
-            return false;
         return true;
     }
+
 }
