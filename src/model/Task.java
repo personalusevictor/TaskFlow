@@ -145,10 +145,6 @@ public class Task {
 	}
 
 	/* MÉTODOS AUXILIARES */
-	public static void resetCounter() {
-		countTask = 0;
-	}
-
 	@Override
 	public String toString() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");

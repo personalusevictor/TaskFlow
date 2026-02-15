@@ -19,7 +19,7 @@ public class User {
     private List<Project> projects;
 
     /* CONSTRUCTOR */
-    
+
     public User(String username, String email, String password) {
         this.ID = ++userCount;
         setUsername(username);
@@ -30,7 +30,7 @@ public class User {
 
     /* GETTERS Y SETTERS */
 
-    public int getID() {
+    public int getId() {
         return ID;
     }
 
@@ -74,6 +74,7 @@ public class User {
 
     /**
      * Obtiene una copia inmutable de la lista de proyectos
+     * 
      * @return Lista de proyectos del usuario
      */
     public List<Project> getProjects() {
@@ -84,6 +85,7 @@ public class User {
 
     /**
      * Verifica si la contraseña proporcionada coincide con el hash almacenado
+     * 
      * @param password Contraseña a verificar
      * @return true si la contraseña es correcta, false en caso contrario
      */
@@ -96,6 +98,7 @@ public class User {
 
     /**
      * Añade un proyecto a la lista de proyectos del usuario
+     * 
      * @param project Proyecto a añadir
      * @return true si se añadió correctamente
      */
@@ -108,6 +111,7 @@ public class User {
 
     /**
      * Elimina un proyecto de la lista
+     * 
      * @param project Proyecto a eliminar
      * @return true si se eliminó correctamente
      */
@@ -117,6 +121,7 @@ public class User {
 
     /**
      * Elimina un proyecto por su índice
+     * 
      * @param index Índice del proyecto
      * @return El proyecto eliminado
      */
@@ -126,51 +131,18 @@ public class User {
 
     /**
      * Obtiene un proyecto por su ID
+     * 
      * @param projectId ID del proyecto
      * @return El proyecto encontrado o null si no existe
      */
     public Project getProjectById(int projectId) {
         return this.projects.stream()
-            .filter(p -> p.getID() == projectId)
-            .findFirst()
-            .orElse(null);
-    }
-
-    /**
-     * Obtiene todas las tareas de todos los proyectos del usuario
-     * @return Lista con todas las tareas
-     */
-    public List<Task> getAllTasks() {
-        return this.projects.stream()
-            .flatMap(p -> p.getTasks().stream())
-            .toList();
-    }
-
-    /**
-     * Obtiene el progreso global de todos los proyectos
-     * @return Porcentaje de progreso promedio (0-100)
-     */
-    public double getGlobalProgress() {
-        if (this.projects.isEmpty()) {
-            return 0;
-        }
-        
-        double sum = this.projects.stream()
-            .mapToDouble(Project::getProgress)
-            .sum();
-        
-        return sum / this.projects.size();
+                .filter(p -> p.getID() == projectId)
+                .findFirst()
+                .orElse(null);
     }
 
     /* MÉTODOS AUXILIARES */
-
-    /**
-     * Resetea el contador de usuarios (útil para testing)
-     */
-    public static void resetCounter() {
-        userCount = 0;
-    }
-
     @Override
     public String toString() {
         return String.format("ID: %d | Username: %s | Email: %s | Projects: %d",
@@ -182,9 +154,6 @@ public class User {
         final int prime = 31;
         int result = 1;
         result = prime * result + ID;
-        result = prime * result + ((username == null) ? 0 : username.hashCode());
-        result = prime * result + ((email == null) ? 0 : email.hashCode());
-        result = prime * result + ((hashPassword == null) ? 0 : hashPassword.hashCode());
         return result;
     }
 
@@ -198,21 +167,6 @@ public class User {
             return false;
         User other = (User) obj;
         if (ID != other.ID)
-            return false;
-        if (username == null) {
-            if (other.username != null)
-                return false;
-        } else if (!username.equals(other.username))
-            return false;
-        if (email == null) {
-            if (other.email != null)
-                return false;
-        } else if (!email.equals(other.email))
-            return false;
-        if (hashPassword == null) {
-            if (other.hashPassword != null)
-                return false;
-        } else if (!hashPassword.equals(other.hashPassword))
             return false;
         return true;
     }
