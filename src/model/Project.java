@@ -13,16 +13,16 @@ public class Project {
     }
 
     // Atributos no-estaticos
-    private final int ID;
+    private final int Id;
     private String name;
     private String description;
     private final LocalDate creationDate;
     private List<Task> tasks;
 
     public Project(String name, String description) {
-        this.ID = ++projectCount;
-        setName(name);
-        setDescription(description);
+        this.Id = ++proyectCount;
+        this.name = name;
+        this.description = description;
         this.creationDate = LocalDate.now();
         this.tasks = new ArrayList<>();
 
@@ -80,16 +80,16 @@ public class Project {
         return getTasksByState(State.EXPIRED);
     }
 
-    public double getProgress() {
+    public int getProgress() {
         if (this.tasks.isEmpty()) {
             return 0;
         }
 
-        return (double) (getCompletedTasks().size() * 100) / this.tasks.size();
+        return (getCompletedTasks().size() * 100) / this.tasks.size();
     }
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return Id;
     }
 
     public String getName() {
@@ -122,11 +122,11 @@ public class Project {
     @Override
     public String toString() {
         if (description == null) {
-            return String.format("ID: %d%n Name: %s%n Tasks: ",
-                    this.ID, this.name);
+            return String.format("Id: %d%n Name: %s%n Tasks: ",
+                    this.Id, this.name);
         } else {
-            return String.format("ID: %d%n Name: %s%n Description: %s%n Tasks: ",
-                    this.ID, this.name, this.description);
+            return String.format("Id: %d%n Name: %s%n Description: %s%n Tasks: ",
+                    this.Id, this.name, this.description);
         }
     }
 
@@ -134,7 +134,11 @@ public class Project {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ID;
+        result = prime * result + Id;
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((description == null) ? 0 : description.hashCode());
+        result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
+        result = prime * result + ((tasks == null) ? 0 : tasks.hashCode());
         return result;
     }
 
@@ -147,7 +151,7 @@ public class Project {
         if (getClass() != obj.getClass())
             return false;
         Project other = (Project) obj;
-        if (ID != other.ID)
+        if (Id != other.Id)
             return false;
         return true;
     }

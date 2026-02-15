@@ -145,7 +145,7 @@ public class User {
      */
     public Project getProjectById(int projectId) {
         return this.projects.stream()
-                .filter(p -> p.getID() == projectId)
+                .filter(p -> p.getId() == projectId)
                 .findFirst()
                 .orElse(null);
     }
