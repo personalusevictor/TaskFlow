@@ -179,14 +179,6 @@ public class User {
     }
 
     /* MÉTODOS AUXILIARES */
-
-    /**
-     * Resetea el contador de usuarios (útil para testing)
-     */
-    public static void resetCounter() {
-        userCount = 0;
-    }
-
     @Override
     public String toString() {
         return String.format("Id: %d | Username: %s | Email: %s | Projects: %d",

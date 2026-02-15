@@ -6,10 +6,10 @@ import java.util.List;
 
 public class Project {
     // Atributos estaticos
-    private static int proyectCount = 0;
+    private static int projectCount = 0;
 
-    public static int getProyectCount() {
-        return proyectCount;
+    public static int getProjectCount() {
+        return projectCount;
     }
 
     // Atributos no-estaticos
@@ -20,9 +20,9 @@ public class Project {
     private List<Task> tasks;
 
     public Project(String name, String description) {
-        this.ID = ++proyectCount;
-        this.name = name;
-        this.description = description;
+        this.ID = ++projectCount;
+        setName(name);
+        setDescription(description);
         this.creationDate = LocalDate.now();
         this.tasks = new ArrayList<>();
 
@@ -33,14 +33,26 @@ public class Project {
     }
 
     public boolean addTask(Task task) {
+        if (task == null) {
+            throw new IllegalArgumentException("El campo 'task' no puede ser null");
+        }
+
         return this.tasks.add(task);
     }
 
     public void addTask(Task task, int index) {
+        if (task == null) {
+            throw new IllegalArgumentException("El campo 'task' no puede ser null");
+        }
+
         this.tasks.add(index, task);
     }
 
     public boolean removeTask(Task task) {
+        if (task == null) {
+            throw new IllegalArgumentException("El campo 'task' no puede ser null");
+        }
+
         return this.tasks.remove(task);
     }
 
@@ -123,10 +135,6 @@ public class Project {
         final int prime = 31;
         int result = 1;
         result = prime * result + ID;
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + ((description == null) ? 0 : description.hashCode());
-        result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
-        result = prime * result + ((tasks == null) ? 0 : tasks.hashCode());
         return result;
     }
 
@@ -141,27 +149,6 @@ public class Project {
         Project other = (Project) obj;
         if (ID != other.ID)
             return false;
-        if (name == null) {
-            if (other.name != null)
-                return false;
-        } else if (!name.equals(other.name))
-            return false;
-        if (description == null) {
-            if (other.description != null)
-                return false;
-        } else if (!description.equals(other.description))
-            return false;
-        if (creationDate == null) {
-            if (other.creationDate != null)
-                return false;
-        } else if (!creationDate.equals(other.creationDate))
-            return false;
-        if (tasks == null) {
-            if (other.tasks != null)
-                return false;
-        } else if (!tasks.equals(other.tasks))
-            return false;
         return true;
     }
-
 }
