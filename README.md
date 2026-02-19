@@ -1,18 +1,51 @@
-## Getting Started
+# 🚀 TaskFlow – Gestor Profesional de Proyectos y Tareas
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+**TaskFlow** es una aplicación de escritorio desarrollada en **Java** que permite a los usuarios organizar su flujo de trabajo mediante la gestión de proyectos y tareas. Este proyecto ha sido desarrollado como parte del aprendizaje en el primer año de **DAW (Desarrollo de Aplicaciones Web)**, enfocándose en la aplicación de la Programación Orientada a Objetos (POO) y el diseño de interfaces modernas.
 
-## Folder Structure
+---
 
-The workspace contains two folders by default, where:
+## 🎯 Objetivos del Proyecto
+El objetivo principal es demostrar solidez en los fundamentos de desarrollo de software, incluyendo:
+- **Arquitectura en capas:** Separación clara entre Modelo, Vista, Controlador y Servicios.
+- **Interfaz Gráfica (GUI):** Implementación con **JavaFX**.
+- **Gestión de Datos:** Persistencia de información mediante archivos (Serialización/JSON).
+- **Lógica de Negocio:** Control de estados, prioridades, fechas límite y cálculo de progreso.
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+---
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+## ✨ Funcionalidades Principales
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+### 👤 Gestión de Usuarios
+- Sistema de **Login y Registro**.
+- Espacio de trabajo personalizado (cada usuario gestiona sus propios proyectos).
 
-## Dependency Management
+### 📂 Gestión de Proyectos
+- Creación, edición y eliminación de proyectos.
+- **Cálculo automático de progreso** basado en las tareas completadas.
+- Visualización de estadísticas rápidas por proyecto.
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+### 📝 Gestión de Tareas
+- Atributos detallados: Título, descripción, prioridad (Baja, Media, Alta) y estado (Pendiente, En Progreso, Completada).
+- **Control de fechas:** Fecha de creación y fecha límite.
+- **Alertas visuales:** Identificación automática de tareas vencidas.
+- Filtros avanzados por estado y prioridad.
+
+---
+
+## 🛠️ Stack Tecnológico
+- **Lenguaje:** Java 17
+- **Interfaz Gráfica:** JavaFX
+- **Persistencia:** Gestión de archivos (File I/O)
+- **Entorno de Desarrollo:** VS Code / Cursor
+- **Arquitectura:** Modelo-Vista-Controlador (MVC)
+
+---
+
+## 🏗️ Estructura del Proyecto
+```text
+src/
+├── model/       # Clases de dominio (Usuario, Proyecto, Tarea, Enums)
+├── service/     # Lógica de negocio y gestión de datos
+├── controller/  # Controladores de la interfaz JavaFX
+├── view/        # Archivos FXML y estilos CSS
+└── Main.java    # Punto de entrada de la aplicación
