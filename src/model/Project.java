@@ -119,14 +119,18 @@ public class Project {
         return List.copyOf(this.tasks);
     }
 
+    public static void resetCounter() {
+        projectCount = 0;
+    }
+
     @Override
     public String toString() {
         if (description == null) {
-            return String.format("Id: %d%n Name: %s%n Tasks: ",
-                    this.Id, this.name);
+            return String.format("Id: %d%n Name: %s%n Tasks: %s%n",
+                    this.Id, this.name, String.join("- ", tasks.toString()));
         } else {
-            return String.format("Id: %d%n Name: %s%n Description: %s%n Tasks: ",
-                    this.Id, this.name, this.description);
+            return String.format("Id: %d%n Name: %s%n Description: %s%n Tasks: %s%n",
+                    this.Id, this.name, this.description, String.join("- ", tasks.toString()));
         }
     }
 
@@ -135,10 +139,6 @@ public class Project {
         final int prime = 31;
         int result = 1;
         result = prime * result + Id;
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + ((description == null) ? 0 : description.hashCode());
-        result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
-        result = prime * result + ((tasks == null) ? 0 : tasks.hashCode());
         return result;
     }
 
@@ -155,4 +155,5 @@ public class Project {
             return false;
         return true;
     }
+
 }

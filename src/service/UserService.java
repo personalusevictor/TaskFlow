@@ -2,6 +2,8 @@ package service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import model.User;
 
 public class UserService {
@@ -36,8 +38,8 @@ public class UserService {
         actualUser = null;
     }
 
-    public User getActualUser() {
-        return new User(actualUser);
+    public Optional<User> getActualUser() {
+        return Optional.ofNullable(actualUser);
     }
 
     public User searchByEmail(String email) {

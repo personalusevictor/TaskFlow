@@ -30,7 +30,7 @@ public class User {
 
     public User(User actualUser) {
         this.Id = actualUser.Id;
-        setUsername(actualUser.email);
+        setUsername(actualUser.username);
         setEmail(actualUser.email);
         this.hashPassword = actualUser.hashPassword;
         this.projects = List.copyOf(actualUser.projects);
@@ -179,6 +179,10 @@ public class User {
     }
 
     /* MÉTODOS AUXILIARES */
+    public static void resetCounter() {
+        userCount = 0;
+    }
+
     @Override
     public String toString() {
         return String.format("Id: %d | Username: %s | Email: %s | Projects: %d",
