@@ -9,10 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.taskflow</groupId>
-	<artifactId>taskflow</artifactId>
+	<artifactId>api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>taskflow</name>
-	<description>Demo project for Spring Boot</description>
+	<name>api</name>
 	<url/>
 	<licenses>
 		<license/>

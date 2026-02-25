@@ -1,4 +1,4 @@
-package com.taskflow.taskflow.controller;
+package com.taskflow.api.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +17,11 @@ public class LoginController {
     @GetMapping("/holanombre/{nombre}/{edad}")
     public String holaMundoNombre(@PathVariable String nombre, @PathVariable int edad) {
         return "Hola mundo " + nombre + " tu edad es: " + edad;
+    }
+
+    @GetMapping("/treecko")
+    public String treecko() {
+        return "treecko!";
     }
 
 }

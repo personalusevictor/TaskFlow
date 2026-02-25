@@ -1,4 +1,4 @@
-package com.taskflow.taskflow.model;
+package com.taskflow.api.model;
 
 import java.util.ArrayList;
 import java.util.List;
