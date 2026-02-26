@@ -3,26 +3,31 @@ package com.treeco.api.model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "project")
 public class Project {
-    // Atributos estaticos
-    private static int projectCount = 0;
-
-    public static int getProjectCount() {
-        return projectCount;
-    }
-
-    // Atributos no-estaticos
-    private final int Id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int Id;
+    @Column(nullable = false)
     private String name;
-    private String description;
+    @Column(nullable = false)
+    private Optional<String> description;
+    @Column(nullable = false)
     private final LocalDate creationDate;
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private User user;
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Task> tasks;
 
     public Project(String name, String description) {
-        this.Id = ++projectCount;
-        this.name = name;
-        this.description = description;
+        setName(name);
+        setDescription(description);
         this.creationDate = LocalDate.now();
         this.tasks = new ArrayList<>();
 
@@ -103,29 +108,29 @@ public class Project {
         this.name = name.trim();
     }
 
-    public String getDescription() {
+    public Optional<String> getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
-        this.description = (description == null) ? null : description.trim();
+        this.description = Optional.ofNullable(description);
     }
 
     public LocalDate getCreationDate() {
         return creationDate;
     }
 
+    public User getUser() {
+        return user;
+    }
+
     public List<Task> getTasks() {
         return List.copyOf(this.tasks);
     }
 
-    public static void resetCounter() {
-        projectCount = 0;
-    }
-
     @Override
     public String toString() {
-        if (description == null) {
+        if (description.isEmpty()) {
             return String.format("Id: %d%n Name: %s%n Tasks: %s%n",
                     this.Id, this.name, String.join("- ", tasks.toString()));
         } else {
