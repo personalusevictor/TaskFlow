@@ -68,7 +68,12 @@ public class Task {
     public static Builder builder(String title) {
         return new Builder(title);
     }
-
+		
+		public Task() {
+			this.dateCreation = LocalDate.now();
+			this.completed = false;
+		}
+		
     private Task(Builder builder) {
         this.title = builder.title;
         this.description = builder.description;
@@ -81,7 +86,7 @@ public class Task {
 
     /* GETTERS Y SETTERS */
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -148,6 +153,10 @@ public class Task {
     public Priority getPriority() {
         return priority;
     }
+		
+		public void setProject(Project project) {
+				this.project = project;
+		}
 
     /* MÉTODOS DE LÓGICA */
 
@@ -191,21 +200,17 @@ public class Task {
         final int prime = 31;
         int result = 1;
         result = prime * result + id;
-        return result;
+        return id != null ? id.hashCode() : 0;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Task other = (Task) obj;
-        if (id != other.id)
-            return false;
-        return true;
+			if (this == obj) return true;
+			if (obj == null) return false;
+			if (getClass() != obj.getClass()) return false;
+			Task other = (Task) obj;
+			if (this.id == null || other.id == null) return false;
+			return this.id.equals(other.id);
     }
 
 }

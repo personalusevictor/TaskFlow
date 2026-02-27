@@ -17,12 +17,17 @@ public class Project {
     @Column(nullable = false)
     private String description;
     @Column(nullable = false)
-    private final LocalDate creationDate;
+    private LocalDate creationDate;
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
     private User user;
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Task> tasks;
+		
+		public Project() {
+			this.creationDate = LocalDate.now();
+			this.tasks = new ArrayList<>();
+		}
 
     public Project(String name, String description) {
         setName(name);
@@ -122,6 +127,10 @@ public class Project {
     public User getUser() {
         return user;
     }
+		
+		public void setUser(User user) {
+			this.user = user;
+		}
 
     public List<Task> getTasks() {
         return List.copyOf(this.tasks);

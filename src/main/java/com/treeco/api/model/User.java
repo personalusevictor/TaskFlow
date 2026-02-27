@@ -1,4 +1,4 @@
-package com.treeco.api.model;
+	package com.treeco.api.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +20,14 @@ public class User {
     private String email;
     @Column(nullable = false)
     private String hashPassword;
-    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Project> projects;
 
     /* CONSTRUCTOR */
-
+		public User() {
+			this.projects = new ArrayList<>();
+		}
+		
     public User(String username, String email, String password) {
         setUsername(username);
         setEmail(email);
