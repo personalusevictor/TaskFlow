@@ -3,7 +3,7 @@ package com.treeco.api.model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Objects;
 import jakarta.persistence.*;
 
 @Entity
@@ -23,18 +23,17 @@ public class Project {
     private User user;
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Task> tasks;
-		
-		public Project() {
-			this.creationDate = LocalDate.now();
-			this.tasks = new ArrayList<>();
-		}
+
+    public Project() {
+        this.creationDate = LocalDate.now();
+        this.tasks = new ArrayList<>();
+    }
 
     public Project(String name, String description) {
         setName(name);
         setDescription(description);
         this.creationDate = LocalDate.now();
         this.tasks = new ArrayList<>();
-
     }
 
     public Project(String name) {
@@ -42,26 +41,17 @@ public class Project {
     }
 
     public boolean addTask(Task task) {
-        if (task == null) {
-            throw new IllegalArgumentException("El campo 'task' no puede ser null");
-        }
-
+        if (task == null) throw new IllegalArgumentException("El campo 'task' no puede ser null");
         return this.tasks.add(task);
     }
 
     public void addTask(Task task, int index) {
-        if (task == null) {
-            throw new IllegalArgumentException("El campo 'task' no puede ser null");
-        }
-
+        if (task == null) throw new IllegalArgumentException("El campo 'task' no puede ser null");
         this.tasks.add(index, task);
     }
 
     public boolean removeTask(Task task) {
-        if (task == null) {
-            throw new IllegalArgumentException("El campo 'task' no puede ser null");
-        }
-
+        if (task == null) throw new IllegalArgumentException("El campo 'task' no puede ser null");
         return this.tasks.remove(task);
     }
 
@@ -70,40 +60,25 @@ public class Project {
     }
 
     public List<Task> getTasksByState(State state) {
-        if (state == null) {
-            throw new IllegalArgumentException("El campo 'state' no puede estar vacio");
-        }
-
+        if (state == null) throw new IllegalArgumentException("El campo 'state' no puede estar vacio");
         return this.tasks.stream().filter(t -> t.getState() == state).toList();
     }
 
-    public List<Task> getInProgressTasks() {
-        return getTasksByState(State.IN_PROGRESS);
-    }
-
-    public List<Task> getCompletedTasks() {
-        return getTasksByState(State.COMPLETED);
-    }
-
-    public List<Task> getExpiredTasks() {
-        return getTasksByState(State.EXPIRED);
-    }
+    public List<Task> getInProgressTasks()  { return getTasksByState(State.IN_PROGRESS); }
+    public List<Task> getCompletedTasks()   { return getTasksByState(State.COMPLETED); }
+    public List<Task> getExpiredTasks()     { return getTasksByState(State.EXPIRED); }
 
     public int getProgress() {
-        if (this.tasks.isEmpty()) {
-            return 0;
-        }
-
+        if (this.tasks.isEmpty()) return 0;
         return (getCompletedTasks().size() * 100) / this.tasks.size();
     }
 
-    public int getId() {
+    // FIXED: devuelve Integer en lugar de int para consistencia con JPA y evitar NPE
+    public Integer getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
 
     public void setName(String name) {
         if (name == null || name.trim().isEmpty()) {
@@ -112,25 +87,11 @@ public class Project {
         this.name = name.trim();
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public LocalDate getCreationDate() {
-        return creationDate;
-    }
-
-    public User getUser() {
-        return user;
-    }
-		
-		public void setUser(User user) {
-			this.user = user;
-		}
+    public String getDescription()              { return description; }
+    public void setDescription(String description) { this.description = description; }
+    public LocalDate getCreationDate()          { return creationDate; }
+    public User getUser()                       { return user; }
+    public void setUser(User user)              { this.user = user; }
 
     public List<Task> getTasks() {
         return List.copyOf(this.tasks);
@@ -139,34 +100,22 @@ public class Project {
     @Override
     public String toString() {
         if (description == null) {
-            return String.format("id: %d%n Name: %s%n Tasks: %s%n",
-                    this.id, this.name, String.join("- ", tasks.toString()));
-        } else {
-            return String.format("id: %d%n Name: %s%n Description: %s%n Tasks: %s%n",
-                    this.id, this.name, this.description, String.join("- ", tasks.toString()));
+            return String.format("id: %d%n Name: %s%n Tasks: %s%n", id, name, tasks);
         }
+        return String.format("id: %d%n Name: %s%n Description: %s%n Tasks: %s%n", id, name, description, tasks);
     }
 
+    // FIXED: usaba 'id' como int primitivo → NPE si id es null antes de persistir
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + id;
-        return result;
+        return Objects.hashCode(id);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
         Project other = (Project) obj;
-        if (id != other.id)
-            return false;
-        return true;
+        return Objects.equals(id, other.id);
     }
-
 }

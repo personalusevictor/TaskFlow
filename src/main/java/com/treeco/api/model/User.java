@@ -1,7 +1,8 @@
-	package com.treeco.api.model;
+package com.treeco.api.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import org.mindrot.jbcrypt.BCrypt;
 import jakarta.persistence.*;
 
@@ -24,10 +25,10 @@ public class User {
     private List<Project> projects;
 
     /* CONSTRUCTOR */
-		public User() {
-			this.projects = new ArrayList<>();
-		}
-		
+    public User() {
+        this.projects = new ArrayList<>();
+    }
+
     public User(String username, String email, String password) {
         setUsername(username);
         setEmail(email);
@@ -75,73 +76,33 @@ public class User {
         } else if (password.length() < 8) {
             throw new IllegalArgumentException("Mínimo 8 caracteres");
         }
-
         this.hashPassword = BCrypt.hashpw(password, BCrypt.gensalt(6));
     }
 
-    /**
-     * Obtiene una copia inmutable de la lista de proyectos
-     * 
-     * @return Lista de proyectos del usuario
-     */
     public List<Project> getProjects() {
         return List.copyOf(this.projects);
     }
 
     /* MÉTODOS DE LÓGICA */
 
-    /**
-     * Verifica si la contraseña proporcionada coincide con el hash almacenado
-     * 
-     * @param password Contraseña a verificar
-     * @return true si la contraseña es correcta, false en caso contrario
-     */
     public boolean checkPassword(String password) {
-        if (password == null) {
-            return false;
-        }
+        if (password == null) return false;
         return BCrypt.checkpw(password, this.hashPassword);
     }
 
-    /**
-     * Añade un proyecto a la lista de proyectos del usuario
-     * 
-     * @param project Proyecto a añadir
-     * @return true si se añadió correctamente
-     */
     public boolean addProject(Project project) {
-        if (project == null) {
-            throw new IllegalArgumentException("El proyecto no puede ser nulo");
-        }
+        if (project == null) throw new IllegalArgumentException("El proyecto no puede ser nulo");
         return this.projects.add(project);
     }
 
-    /**
-     * Elimina un proyecto de la lista
-     * 
-     * @param project Proyecto a eliminar
-     * @return true si se eliminó correctamente
-     */
     public boolean removeProject(Project project) {
         return this.projects.remove(project);
     }
 
-    /**
-     * Elimina un proyecto por su índice
-     * 
-     * @param index Índice del proyecto
-     * @return El proyecto eliminado
-     */
     public Project removeProject(int index) {
         return this.projects.remove(index);
     }
 
-    /**
-     * Obtiene un proyecto por su id
-     * 
-     * @param projectid id del proyecto
-     * @return El proyecto encontrado o null si no existe
-     */
     public Project getProjectByid(int projectid) {
         return this.projects.stream()
                 .filter(p -> p.getId() == projectid)
@@ -149,61 +110,39 @@ public class User {
                 .orElse(null);
     }
 
-    /**
-     * Obtiene todas las tareas de todos los proyectos del usuario
-     * 
-     * @return Lista con todas las tareas
-     */
     public List<Task> getAllTasks() {
         return this.projects.stream()
                 .flatMap(p -> p.getTasks().stream())
                 .toList();
     }
 
-    /**
-     * Obtiene el progreso global de todos los proyectos
-     * 
-     * @return Porcentaje de progreso promedio (0-100)
-     */
     public double getGlobalProgress() {
-        if (this.projects.isEmpty()) {
-            return 0;
-        }
-
-        double sum = this.projects.stream()
+        if (this.projects.isEmpty()) return 0;
+        return this.projects.stream()
                 .mapToDouble(Project::getProgress)
-                .sum();
-
-        return sum / this.projects.size();
+                .average()
+                .orElse(0);
     }
 
     /* MÉTODOS AUXILIARES */
+
     @Override
     public String toString() {
         return String.format("id: %d | Username: %s | Email: %s | Projects: %d",
                 this.id, this.username, this.email, this.projects.size());
     }
 
+    // FIXED: usaba 'id' como int primitivo directamente → NPE si id es null antes de persistir
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + id;
-        return result;
+        return Objects.hashCode(id);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
         User other = (User) obj;
-        if (id != other.id)
-            return false;
-        return true;
+        return Objects.equals(id, other.id);
     }
-
 }
