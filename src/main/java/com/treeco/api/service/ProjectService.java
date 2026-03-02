@@ -1,52 +1,114 @@
 package com.treeco.api.service;
 
-import java.util.ArrayList;
+import com.treeco.api.model.Project;
+import com.treeco.api.model.State;
+import com.treeco.api.model.Task;
+import com.treeco.api.model.User;
+import com.treeco.api.repository.ProjectRepository;
+import com.treeco.api.repository.UserRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
+import java.util.NoSuchElementException;
 
-import com.treeco.api.model.*;
-
+@Service
 public class ProjectService {
-    private List<Project> projects;
 
-    public ProjectService() {
-        this.projects = new ArrayList<>();
+    private final ProjectRepository projectRepository;
+    private final UserRepository userRepository;
+
+    public ProjectService(ProjectRepository projectRepository, UserRepository userRepository) {
+        this.projectRepository = projectRepository;
+        this.userRepository = userRepository;
     }
 
-    public Project createProject(String name, String description) {
-        Project project = new Project(name, description);
-        projects.add(project);
-        return project;
-    }
+    // ── CONSULTAS ─────────────────────────────────────────────────────
 
-    public Project searchById(int id) {
-        return projects.stream().filter(t -> t.getId() == id).findFirst().orElse(null);
-    }
-
-    public boolean removeProject(int id) {
-        return projects.remove(searchById(id));
-    }
-
+    /**
+     * Devuelve todos los proyectos.
+     */
     public List<Project> getProjects() {
-        return List.copyOf(projects);
+        return projectRepository.findAll();
     }
 
-    public void addTaskToProject(int projectId, Task task) {
-        if (task == null)
-            throw new IllegalArgumentException("El campo 'task' no puede ser null");
-        searchById(projectId).addTask(task);
+    /**
+     * Busca un proyecto por ID.
+     * @throws NoSuchElementException si no existe
+     */
+    public Project findById(Integer id) {
+        return projectRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Proyecto no encontrado con id: " + id));
     }
 
-    public void removeTaskToProject(int projectId, Task task) {
-        if (task == null)
-            throw new IllegalArgumentException("El campo 'task' no puede ser null");
-        searchById(projectId).removeTask(task);
+    /**
+     * Devuelve todos los proyectos de un usuario.
+     * @throws NoSuchElementException si el usuario no existe
+     */
+    public List<Project> getProjectsByUser(Integer userId) {
+        if (!userRepository.existsById(userId)) {
+            throw new NoSuchElementException("Usuario no encontrado con id: " + userId);
+        }
+        return projectRepository.findByUserId(userId);
     }
 
-    public List<Task> getTaskOfProject(int projectId) {
-        return searchById(projectId).getTasks();
+    /**
+     * Devuelve el porcentaje de progreso de un proyecto (tareas completadas / total).
+     */
+    public int getProgress(Integer projectId) {
+        return findById(projectId).getProgress();
     }
 
-    public int getProgressProject(int projectId) {
-        return searchById(projectId).getProgress();
+    /**
+     * Devuelve las tareas de un proyecto filtradas por estado.
+     */
+    public List<Task> getTasksByState(Integer projectId, State state) {
+        return findById(projectId).getTasksByState(state);
+    }
+
+    // ── CREAR / ACTUALIZAR / ELIMINAR ─────────────────────────────────
+
+    /**
+     * Crea un nuevo proyecto asociado a un usuario.
+     * @throws NoSuchElementException si el usuario no existe
+     */
+    @Transactional
+    public Project createProject(Integer userId, String name, String description) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NoSuchElementException("Usuario no encontrado con id: " + userId));
+
+        Project project = new Project(name, description);
+        project.setUser(user);
+        return projectRepository.save(project);
+    }
+
+    /**
+     * Actualiza nombre y/o descripción de un proyecto.
+     * @throws NoSuchElementException si el proyecto no existe
+     */
+    @Transactional
+    public Project updateProject(Integer projectId, String newName, String newDescription) {
+        Project project = findById(projectId);
+
+        if (newName != null && !newName.isBlank()) {
+            project.setName(newName);
+        }
+        if (newDescription != null) {
+            project.setDescription(newDescription);
+        }
+
+        return projectRepository.save(project);
+    }
+
+    /**
+     * Elimina un proyecto por ID.
+     * @throws NoSuchElementException si no existe
+     */
+    @Transactional
+    public void deleteProject(Integer projectId) {
+        if (!projectRepository.existsById(projectId)) {
+            throw new NoSuchElementException("Proyecto no encontrado con id: " + projectId);
+        }
+        projectRepository.deleteById(projectId);
     }
 }
