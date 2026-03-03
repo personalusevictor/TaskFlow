@@ -6,8 +6,8 @@
   <title>TreeCO — Autenticación</title>
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="assets/img/favicon/TreeCO.png" />
-  <link rel="apple-touch-icon" href="assets/img/favicon/TreeCO.png" />
+  <link rel="icon" type="image/png" href="assets/img/favicon/TreeCO.svg" />
+  <link rel="apple-touch-icon" href="assets/img/favicon/TreeCO.svg" />
 
   <!-- Styles -->
   <link rel="stylesheet" href="css/root.css" />
@@ -29,13 +29,13 @@
 
     <!-- Logo -->
     <div class="logo-wrap" role="banner">
-      <img src="assets/img/favicon/TreeCO.png" alt="TreeCO logo" class="logo-img" width="40" height="40" />
+      <img src="assets/img/favicon/TreeCO.png" alt="TreeCO logo" class="logo-img" width="40" height="40" draggable="false"/>
       <span class="logo-name">Tree<span>CO</span></span>
     </div>
 
     <!-- Mobile Tabs (hidden on desktop) -->
     <div class="mobile-toggle" role="tablist" aria-label="Modo de acceso">
-      <button class="mobile-tab active" data-mode="login"    role="tab" aria-selected="true">Entrar</button>
+      <button class="mobile-tab active" data-mode="login"    role="tab" aria-selected="true">Iniciar Sesión</button>
       <button class="mobile-tab"        data-mode="register" role="tab" aria-selected="false">Registrarse</button>
     </div>
 
@@ -80,7 +80,7 @@
                     id="login-email"
                     name="email"
                     class="input-field"
-                    placeholder="tu@email.com"
+                    placeholder="usuario@email.com"
                     autocomplete="email"
                     aria-required="true"
                     aria-describedby="login-email-error"
@@ -191,7 +191,7 @@
                     id="register-email"
                     name="email"
                     class="input-field"
-                    placeholder="tu@email.com"
+                    placeholder="usuario@email.com"
                     autocomplete="email"
                     aria-required="true"
                     aria-describedby="register-email-error"

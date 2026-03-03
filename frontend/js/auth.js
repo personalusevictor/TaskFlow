@@ -79,7 +79,7 @@
 			 overlayBtn.onclick         = () => setMode('register');
 		 } else {
 			 // Overlay is on the LEFT (covers login panel) → CTA to go to login
-			 overlayEyebrow.textContent = 'Ya tienes cuenta';
+			 overlayEyebrow.textContent = '¿Ya tienes cuenta?';
 			 overlayTitle.textContent   = 'Bienvenido de nuevo';
 			 overlayDesc.textContent    = 'Accede a tus proyectos y tareas donde lo dejaste.';
 			 overlayIcon.textContent    = '🌿';
