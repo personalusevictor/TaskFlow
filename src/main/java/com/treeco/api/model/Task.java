@@ -2,6 +2,11 @@ package com.treeco.api.model;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import com.treeco.api.model.enums.Priority;
+import com.treeco.api.model.enums.State;
+import com.treeco.api.model.enums.TaskType;
+
 import jakarta.persistence.*;
 
 @Entity
