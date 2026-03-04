@@ -19,8 +19,11 @@ public class AuthController {
         this.userRepository = userRepository;
     }
 
-    public record RegisterRequest(String username, String email, String password) {}
-    public record LoginRequest(String email, String password) {}
+    public record RegisterRequest(String username, String email, String password) {
+    }
+
+    public record LoginRequest(String email, String password) {
+    }
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
@@ -45,8 +48,7 @@ public class AuthController {
                     .body(Map.of(
                             "message", "Usuario registrado correctamente",
                             "userId", newUser.getId(),
-                            "username", newUser.getUsername()
-                    ));
+                            "username", newUser.getUsername()));
 
         } catch (IllegalArgumentException e) {
             return ResponseEntity
@@ -78,8 +80,7 @@ public class AuthController {
                     "message", "Login correcto",
                     "userId", user.getId(),
                     "username", user.getUsername(),
-                    "email", user.getEmail()
-            ));
+                    "email", user.getEmail()));
 
         } catch (Exception e) {
             return ResponseEntity
