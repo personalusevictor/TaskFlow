@@ -4,12 +4,42 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TreeCO - Principal</title>
+
+    <title>TreeCO - Dashboard</title>
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/img/favicon/TreeCO.svg" />
+    <link rel="apple-touch-icon" href="assets/img/favicon/TreeCO.svg" />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/root.css" />
     <link rel="stylesheet" href="css/dashboard.css" />
 </head>
 
 <body>
+    <!-- ── Barra lateral izquierda ─────────────────────── -->
+    <div class="lateral-izq">
+        <!-- Logo -->
+        <div class="logo">
+            <img src="assets/img/favicon/TreeCO.svg" alt="TreeCO logo" class="logo-imagen" width="40" height="40"
+                draggable="false" />
+            <span class="logo-nombre">Tree<span>CO</span></span>
+        </div>
+
+        <h2>GENERAL</h2>
+        <nav class="">
+            <a class="enlace-activo" href="dashboard.html"><span class="icon">⬡</span> Dashboard</a>
+            <a class="enlace" href=""><span class="icon">⚐</span> Proyectos</a>
+            <a class="enlace" href=""><span class="icon">✓</span> Tareas</a>
+        </nav>
+
+        <a class="usuario" href="">
+            <img src="" alt="img-usuario">
+            <div class="nombre-usuario">
+                <h3>Nombre</h3>
+                <h4>Rol</h4>
+            </div>
+        </a>
+    </div>
     <script>
         function logout() {
             sessionStorage.removeItem('treeco_user');

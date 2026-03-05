@@ -1,0 +1,114 @@
+@import url("root.css");
+
+/* ── Base ───────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: radial-gradient(ellipse 80% 60% at 20% 80%, rgba(20, 60, 35, 0.55) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 80% 20%, rgba(15, 45, 28, 0.45) 0%, transparent 60%), radial-gradient(ellipse 100% 80% at 50% 50%, rgba(8, 20, 12, 0.8) 0%, transparent 70%), var(--color-bg-deep);
+  color: var(--color-text-primary);
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* ── Barra Lateral Izquierda ───────────────────────────── */
+.lateral-izq {
+  background: rgba(4, 10, 6, 0.9);
+  height: 100vh;
+  width: 15rem;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 0;
+  padding: var(--space-6);
+}
+
+.lateral-izq h2 {
+  color: var(--color-text-secondary);
+  font-size: var(--text-xs);
+  letter-spacing: 1px;
+  margin-bottom: var(--space-2);
+}
+
+/* ── Logo ──────────*/
+.lateral-izq .logo {
+  display: flex;
+  align-items: center;
+  margin-top: var(--space-3);
+  margin-bottom: var(--space-12);
+}
+
+.lateral-izq .logo .logo-imagen {
+  width: 32px;
+  height: 32px;
+  margin-right: var(--space-2);
+  object-fit: contain;
+}
+
+.lateral-izq .logo .logo-nombre {
+  font-size: 1.6rem;
+  font-weight: var(--weight-bold);
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+}
+
+.lateral-izq .logo .logo-nombre span {
+  color: var(--color-text-accent);
+}
+
+/* ── General ──────────*/
+.lateral-izq nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.lateral-izq nav .enlace,
+.lateral-izq nav .enlace-activo {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-2);
+  padding: var(--space-2);
+}
+
+.lateral-izq nav .enlace span,
+.lateral-izq nav .enlace-activo span {
+  margin-right: var(--space-2);
+  padding-left: 5px;
+}
+
+.lateral-izq nav .enlace:hover {
+  color: var(--color-text-primary);
+}
+
+.lateral-izq nav .enlace-activo {
+  border-radius: var(--radius-md);
+  color: var(--color-text-accent);
+  background: var(--color-green-faint);
+  border: 2px solid var(--color-glass-border);
+}
+
+/* ── Usuario ──────────*/
+.lateral-izq .usuario {
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  margin-bottom: var(--space-6);
+}
