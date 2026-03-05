@@ -16,20 +16,26 @@
 </head>
 
 <body>
+    <script>
+        function logout() {
+            sessionStorage.removeItem('treeco_user');
+            window.location.replace('index.html');
+        }
+    </script>
     <!-- ── Barra lateral izquierda ─────────────────────── -->
     <div class="lateral-izq">
         <!-- Logo -->
-        <div class="logo">
+        <a class="logo" href="dashboard.html">
             <img src="assets/img/favicon/TreeCO.svg" alt="TreeCO logo" class="logo-imagen" width="40" height="40"
                 draggable="false" />
             <span class="logo-nombre">Tree<span>CO</span></span>
-        </div>
+        </a>
 
-        <h2>GENERAL</h2>
-        <nav class="">
-            <a class="enlace-activo" href="dashboard.html"><span class="icon">⬡</span> Dashboard</a>
-            <a class="enlace" href=""><span class="icon">⚐</span> Proyectos</a>
-            <a class="enlace" href=""><span class="icon">✓</span> Tareas</a>
+        <nav class="navegador">
+            <a class="enlace-activo" href="dashboard.html"><span class="icono">⬡</span> Dashboard</a>
+            <a class="enlace" href=""><span class="icono">⚐</span> Proyectos</a>
+            <a class="enlace" href=""><span class="icono">✓</span> Tareas</a>
+            <a class="enlace" href=""><span class="icono">◷</span> Calendario</a>
         </nav>
 
         <a class="usuario" href="">
@@ -40,6 +46,7 @@
             </div>
         </a>
     </div>
+    <button class="btn-logout" onclick="logout()">Cerrar sesion</button>
     <script>
         function logout() {
             sessionStorage.removeItem('treeco_user');
