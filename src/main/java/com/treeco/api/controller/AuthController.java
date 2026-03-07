@@ -14,22 +14,33 @@ import java.util.Optional;
 @RequestMapping("/auth")
 public class AuthController {
 
-    private final UserRepository    userRepository;
+    private final UserRepository userRepository;
     private final TokenEmailService tokenEmailService;
 
     public AuthController(UserRepository userRepository,
-                          TokenEmailService tokenEmailService) {
-        this.userRepository    = userRepository;
+            TokenEmailService tokenEmailService) {
+        this.userRepository = userRepository;
         this.tokenEmailService = tokenEmailService;
     }
 
     // ── DTOs ────────────────────────────────────
-    public record SendRegisterCodeRequest(String username, String email, String password) {}
-    public record ConfirmRegisterRequest(String email, String code) {}
-    public record LoginRequest(String email, String password) {}
-    public record PasswordResetRequestBody(String email) {}
-    public record ValidateResetTokenBody(String code) {}
-    public record ConfirmResetBody(String code, String newPassword) {}
+    public record SendRegisterCodeRequest(String username, String email, String password) {
+    }
+
+    public record ConfirmRegisterRequest(String email, String code) {
+    }
+
+    public record LoginRequest(String email, String password) {
+    }
+
+    public record PasswordResetRequestBody(String email) {
+    }
+
+    public record ValidateResetTokenBody(String code) {
+    }
+
+    public record ConfirmResetBody(String code, String newPassword) {
+    }
 
     // ════════════════════════════════════════════
     // REGISTRO — paso 1: enviar código
@@ -54,14 +65,12 @@ public class AuthController {
             }
 
             tokenEmailService.sendRegistrationCode(
-                request.username().trim(),
-                request.email().trim(),
-                request.password()
-            );
+                    request.username().trim(),
+                    request.email().trim(),
+                    request.password());
 
             return ResponseEntity.ok(Map.of(
-                "message", "Código enviado. Revisa tu email."
-            ));
+                    "message", "Código enviado. Revisa tu email."));
 
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -89,16 +98,14 @@ public class AuthController {
         }
         try {
             User newUser = tokenEmailService.confirmRegistration(
-                request.email().trim(),
-                request.code().trim()
-            );
+                    request.email().trim(),
+                    request.code().trim());
 
             return ResponseEntity.status(HttpStatus.CREATED).body(Map.of(
-                "message",  "Cuenta creada correctamente",
-                "userId",   newUser.getId(),
-                "username", newUser.getUsername(),
-                "email",    newUser.getEmail()
-            ));
+                    "message", "Cuenta creada correctamente",
+                    "userId", newUser.getId(),
+                    "username", newUser.getUsername(),
+                    "email", newUser.getEmail()));
 
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -160,11 +167,10 @@ public class AuthController {
 
             User user = userOpt.get();
             return ResponseEntity.ok(Map.of(
-                "message",  "Login correcto",
-                "userId",   user.getId(),
-                "username", user.getUsername(),
-                "email",    user.getEmail()
-            ));
+                    "message", "Login correcto",
+                    "userId", user.getId(),
+                    "username", user.getUsername(),
+                    "email", user.getEmail()));
 
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -188,11 +194,11 @@ public class AuthController {
         }
         try {
             tokenEmailService.sendPasswordResetEmail(body.email().trim());
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
 
         return ResponseEntity.ok(Map.of(
-            "message", "Si ese email está registrado, recibirás un código en breve"
-        ));
+                "message", "Si ese email está registrado, recibirás un código en breve"));
     }
 
     /**

@@ -175,7 +175,7 @@ formLogin.addEventListener("submit", async (e) => {
     // ✅ Success — store user and redirect
     sessionStorage.setItem("treeco_user", JSON.stringify(data))
     showSuccessAndRedirect(btnLoginSubmit, "¡Bienvenido!", () => {
-      window.location.href = "dashboard.html"
+      window.location.href = "page/dashboard.html"
     })
   } catch (err) {
     showBanner(errorLoginBanner, "No se pudo conectar al servidor")
