@@ -1,36 +1,25 @@
-// dashboard.js - COMPLETO
-const CLAVE_SESION = "usuario_treeco"
+// dashboard.js
+const API_BASE = "http://localhost:8080"
 
-// 1. COMPROBACIÓN DE SEGURIDAD
-const sesionRaw = localStorage.getItem(CLAVE_SESION)
+// Constante con el usuario registrado
+const user = JSON.parse(localStorage.getItem("treeco_user"))
 
-if (!sesionRaw == null) {
-  window.location.replace("../index.html")
-} else {
-  const usuario = JSON.parse(sesionRaw)
-
-  // 2. MOSTRAR NOMBRE
-  const display = document.getElementById("username")
-  if (display && usuario.username) {
-    display.textContent = usuario.username
-  }
-
-  // 3. LOGOUT
-  const btnLogout = document.getElementById("logout")
-  if (btnLogout) {
-    btnLogout.addEventListener("click", (e) => {
-      e.preventDefault()
-      localStorage.removeItem(CLAVE_SESION)
-      window.location.replace("../index.html")
-    })
-  }
-
-  // 4. NAVEGACIÓN ACTIVA
-  const enlaces = document.querySelectorAll(".navegador a")
-  enlaces.forEach((link) => {
-    link.addEventListener("click", function () {
-      enlaces.forEach((l) => l.classList.remove("enlace-activo"))
-      this.classList.add("enlace-activo")
-    })
-  })
+// Comprueba que no estes en dashnboard sin iniciar sesion
+if (!user) {
+  window.location.href = "../index.html"
 }
+
+// Guarda el nombre del usuario registrado en el id "username"
+const username = document.getEle<mentById("username")
+if (username) {
+  username.textContent = user.username
+}
+
+// Hace que los elemntos con el id "logout" cierren la sesion del usuario
+const logout = document.getElementById("logout")
+logout.addEventListener("click", () => {
+  localStorage.removeItem("treeco_user")
+  window.location.href = "index.html"
+})
+
+// Cambia la clase de los enlaces del nav
