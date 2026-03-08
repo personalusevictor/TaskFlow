@@ -35,6 +35,11 @@ const panelLogin = document.getElementById("panel-login")
 const panelRegister = document.getElementById("panel-register")
 const mobileToggle = document.querySelector(".mobile-toggle")
 
+const user = JSON.parse(localStorage.getItem("treeco_user"))
+if (user) {
+  window.location.href = "page/dashboard.html"
+}
+
 // ── Mode Switcher ────────────────────────────────
 function setMode(newMode, instant = false) {
   if (newMode === state.mode) return
@@ -173,7 +178,7 @@ formLogin.addEventListener("submit", async (e) => {
     }
 
     // ✅ Success — store user and redirect
-    sessionStorage.setItem("treeco_user", JSON.stringify(data))
+    localStorage.setItem("treeco_user", JSON.stringify(data))
     showSuccessAndRedirect(btnLoginSubmit, "¡Bienvenido!", () => {
       window.location.href = "page/dashboard.html"
     })

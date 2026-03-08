@@ -1,16 +1,15 @@
 // dashboard.js
-const API_BASE = "http://localhost:8080"
 
 // Constante con el usuario registrado
 const user = JSON.parse(localStorage.getItem("treeco_user"))
 
 // Comprueba que no estes en dashnboard sin iniciar sesion
 if (!user) {
-  window.location.href = "../index.html"
+  globalThis.location.href = "../index.html"
 }
 
 // Guarda el nombre del usuario registrado en el id "username"
-const username = document.getEle<mentById("username")
+const username = document.getElementById("username")
 if (username) {
   username.textContent = user.username
 }
@@ -19,7 +18,17 @@ if (username) {
 const logout = document.getElementById("logout")
 logout.addEventListener("click", () => {
   localStorage.removeItem("treeco_user")
-  window.location.href = "index.html"
+  globalThis.location.href = "../index.html"
 })
 
 // Cambia la clase de los enlaces del nav
+const listaEnlaces = document.getElementsByClassName("enlace")
+
+for (const enlace of listaEnlaces) {
+  enlace.addEventListener("click", () => {
+    for (const e of listaEnlaces) {
+      e.classList.remove("enlace-activo")
+    }
+    enlace.classList.add("enlace-activo")
+  })
+}

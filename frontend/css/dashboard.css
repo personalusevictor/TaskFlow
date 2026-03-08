@@ -28,7 +28,7 @@ body {
 }
 
 /* ── Barra lateral izquierda ───────────────────────────── */
-.barra-superior {
+header {
   width: 100vw;
   display: flex;
   position: absolute;
@@ -39,20 +39,20 @@ body {
   border-bottom: 1px solid var(--color-glass-border);
 }
 
-/* ── Logo ──────────────────────────── */
-.barra-superior .logo {
+/* --- Logo --- */
+header .logo {
   display: flex;
   align-items: center;
   gap: var(--space-2);
   text-decoration: none;
 }
 
-.barra-superior .logo .logo-imagen {
+header .logo .logo-imagen {
   width: 32px;
   height: 32px;
 }
 
-.barra-superior .logo .logo-nombre {
+header .logo .logo-nombre {
   font-size: 1.55rem;
   font-weight: var(--weight-bold);
   letter-spacing: -0.03em;
@@ -61,19 +61,19 @@ body {
   line-height: 1;
 }
 
-.barra-superior .logo .logo-nombre span {
+header .logo .logo-nombre span {
   color: var(--color-text-accent);
 }
 
-/* ── Nav ───────────────────────────── */
-.barra-superior .navegador {
+/* --- Nav --- */
+header .navegador {
   display: flex;
   align-items: center;
   gap: var(--space-20);
 }
 
-.barra-superior nav .enlace,
-.barra-superior nav .enlace-activo {
+header nav .enlace,
+header nav .enlace-activo {
   display: flex;
   align-items: center;
   gap: var(--space-2);
@@ -86,7 +86,7 @@ body {
   transition: all var(--duration-fast) var(--ease-smooth);
 }
 
-.barra-superior nav .enlace:hover {
+header nav .enlace:hover {
   color: var(--color-text-primary);
   background: var(--color-glass-white);
   border-color: var(--color-glass-border);
@@ -94,33 +94,33 @@ body {
   transition: all var(--duration-fast) var(--ease-smooth);
 }
 
-.barra-superior nav .enlace-activo {
+header nav .enlace-activo {
   color: var(--color-text-accent);
   background: var(--color-green-faint);
   border-color: var(--color-glass-border);
   border: 1px solid;
 }
 
-/* ── Usuario ───────────────────────── */
-.usuario {
+/* --- Usuario --- */
+header .usuario {
   display: flex;
   gap: 10px;
   align-items: center;
   text-decoration: none;
 }
 
-.usuario .foto-usuario {
+header .usuario .foto-usuario {
   width: 32px;
   height: 32px;
 }
 
-.usuario .nombre-usuario h2 {
+header .usuario .nombre-usuario h2 {
   color: var(--color-text-primary);
   font-size: var(--text-lg);
   margin-bottom: -2px;
 }
 
-.usuario .nombre-usuario button {
+header .usuario .nombre-usuario button {
   background: none;
   border: none;
   color: var(--color-text-secondary);
@@ -128,7 +128,30 @@ body {
   transition: all var(--duration-fast) var(--ease-smooth);
 }
 
-.usuario .nombre-usuario button:hover {
+header .usuario .nombre-usuario button:hover {
   color: var(--color-text-primary);
   transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+/* ── Main ───────────────────────────── */
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: var(--space-20);
+  gap: var(--space-20);
+}
+
+main .tareas {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid;
+  gap: 8rem;
+  width: 50rem;
+  align-items: center;
+  padding: var(--space-8);
+}
+
+main .tareas .tarea {
+  display: flex;
 }
