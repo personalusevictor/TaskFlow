@@ -32,3 +32,6 @@ for (const enlace of listaEnlaces) {
     enlace.classList.add("enlace-activo")
   })
 }
+
+// Task pendientes
+

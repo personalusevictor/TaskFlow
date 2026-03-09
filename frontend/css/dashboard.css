@@ -89,7 +89,6 @@ header nav .enlace-activo {
 header nav .enlace:hover {
   color: var(--color-text-primary);
   background: var(--color-glass-white);
-  border-color: var(--color-glass-border);
   border: 1px solid;
   transition: all var(--duration-fast) var(--ease-smooth);
 }
@@ -97,7 +96,12 @@ header nav .enlace:hover {
 header nav .enlace-activo {
   color: var(--color-text-accent);
   background: var(--color-green-faint);
-  border-color: var(--color-glass-border);
+  border: 1px solid;
+}
+
+header nav .enlace-activo:hover {
+  color: var(--color-text-accent);
+  background: var(--color-green-faint);
   border: 1px solid;
 }
 
