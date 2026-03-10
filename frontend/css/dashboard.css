@@ -83,7 +83,6 @@ header nav .enlace-activo {
   font-weight: var(--weight-medium);
   padding: 0.5rem 0.85rem;
   border-radius: var(--radius-md);
-  transition: all var(--duration-fast) var(--ease-smooth);
 }
 
 header nav .enlace:hover {
@@ -129,7 +128,6 @@ header .usuario .nombre-usuario button {
   border: none;
   color: var(--color-text-secondary);
   font-size: var(--text-sm);
-  transition: all var(--duration-fast) var(--ease-smooth);
 }
 
 header .usuario .nombre-usuario button:hover {
