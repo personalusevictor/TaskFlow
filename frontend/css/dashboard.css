@@ -28,7 +28,7 @@ body {
 }
 
 /* ── Barra lateral izquierda ───────────────────────────── */
-header {
+top-bar {
   width: 100vw;
   display: flex;
   position: absolute;
@@ -40,19 +40,19 @@ header {
 }
 
 /* --- Logo --- */
-header .logo {
+top-bar .logo {
   display: flex;
   align-items: center;
   gap: var(--space-2);
   text-decoration: none;
 }
 
-header .logo .logo-imagen {
+top-bar .logo .logo-img {
   width: 32px;
   height: 32px;
 }
 
-header .logo .logo-nombre {
+top-bar .logo .logo-name {
   font-size: 1.55rem;
   font-weight: var(--weight-bold);
   letter-spacing: -0.03em;
@@ -61,19 +61,19 @@ header .logo .logo-nombre {
   line-height: 1;
 }
 
-header .logo .logo-nombre span {
+top-bar .logo .logo-name span {
   color: var(--color-text-accent);
 }
 
 /* --- Nav --- */
-header .navegador {
+top-bar .navegator {
   display: flex;
   align-items: center;
   gap: var(--space-20);
 }
 
-header nav .enlace,
-header nav .enlace-activo {
+top-bar nav .link,
+top-bar nav .link-active {
   display: flex;
   align-items: center;
   gap: var(--space-2);
@@ -86,45 +86,45 @@ header nav .enlace-activo {
   transition: all var(--duration-fast) var(--ease-smooth);
 }
 
-header nav .enlace:hover {
+top-bar nav .link:hover {
   color: var(--color-text-primary);
   background: var(--color-glass-white);
   border: 1px solid;
   transition: all var(--duration-fast) var(--ease-smooth);
 }
 
-header nav .enlace-activo {
+top-bar nav .link-active {
   color: var(--color-text-accent);
   background: var(--color-green-faint);
   border: 1px solid;
 }
 
-header nav .enlace-activo:hover {
+top-bar nav .link-active:hover {
   color: var(--color-text-accent);
   background: var(--color-green-faint);
   border: 1px solid;
 }
 
 /* --- Usuario --- */
-header .usuario {
+top-bar .usuario {
   display: flex;
   gap: 10px;
   align-items: center;
   text-decoration: none;
 }
 
-header .usuario .foto-usuario {
+top-bar .usuario .photo-user {
   width: 32px;
   height: 32px;
 }
 
-header .usuario .nombre-usuario h2 {
+top-bar .usuario .name-user h2 {
   color: var(--color-text-primary);
   font-size: var(--text-lg);
   margin-bottom: -2px;
 }
 
-header .usuario .nombre-usuario button {
+top-bar .usuario .name-user button {
   background: none;
   border: none;
   color: var(--color-text-secondary);
@@ -132,7 +132,7 @@ header .usuario .nombre-usuario button {
   transition: all var(--duration-fast) var(--ease-smooth);
 }
 
-header .usuario .nombre-usuario button:hover {
+top-bar .usuario .name-user button:hover {
   color: var(--color-text-primary);
   transition: all var(--duration-fast) var(--ease-smooth);
 }
@@ -146,7 +146,7 @@ main {
   gap: var(--space-20);
 }
 
-main .tareas {
+main .tasks {
   display: flex;
   flex-direction: column;
   border: 1px solid;
@@ -156,6 +156,6 @@ main .tareas {
   padding: var(--space-8);
 }
 
-main .tareas .tarea {
+main .tasks .task {
   display: flex;
 }
