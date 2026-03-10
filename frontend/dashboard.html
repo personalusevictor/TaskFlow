@@ -2,62 +2,78 @@
 <html lang="es">
 
 <head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-	<title>TreeCO - Dashboard</title>
-	<!-- Favicon -->
-	<link rel="icon" type="image/png" href="assets/img/favicon/TreeCO.svg" />
-	<link rel="apple-touch-icon" href="assets/img/favicon/TreeCO.svg" />
+    <title>TreeCO - Dashboard</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/img/favicon/TreeCO.svg" />
+    <link rel="apple-touch-icon" href="assets/img/favicon/TreeCO.svg" />
 
-	<!-- Styles -->
-	<link rel="stylesheet" href="css/root.css" />
-	<link rel="stylesheet" href="css/dashboard.css" />
-
-	<!-- Logout -->
-	<script>
-		(function () {
-			if (!sessionStorage.getItem('treeco_user')) {
-				window.location.replace('index.html');
-			}
-		})();
-	</script>
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/root.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
 </head>
 
 <body>
-	<header>
-		<!-- Logo -->
-		<a class="logo" href="dashboard.html">
-			<img src="assets/img/favicon/TreeCO.svg" alt="TreeCO logo" class="logo-img" width="40" height="40"
-				draggable="false" />
-			<span class="logo-name">Tree<span>CO</span></span>
-		</a>
+    <header>
+        <!-- Logo -->
+        <a class="logo" href="dashboard.html">
+            <img src="assets/img/favicon/TreeCO.svg" alt="TreeCO logo" class="logo-img" width="40" height="40"
+                draggable="false" />
+            <span class="logo-name">Tree<span>CO</span></span>
+        </a>
 
-		<nav class="navegator">
-			<a class="link-active" href="dashboard.html"><span class="icono">⬡</span> Dashboard</a>
-			<a class="link" href=""><span class="icono">⚐</span> Proyectos</a>
-			<a class="link" href=""><span class="icono">✓</span> Tareas</a>
-			<a class="link" href="calendar.html"><span class="icono">◷</span> Calendario</a>
-		</nav>
+        <!--  Nav -->
 
-		<!-- user -->
-		<a class="user" href="">
-			<div class="user-avatar">
-				<img src="" alt="img-user" />
-				<span class="user-status"></span>
-			</div>
-			<div class="name-user">
-				<h3>Nombre</h3>
-				<h4>Rol</h4>
-			</div>
-		</a>
-	</header>
-	<script>
-		function logout() {
-			sessionStorage.removeItem('treeco_user');
-			window.location.replace('index.html');
-		}
-	</script>
+        <nav class="navegator">
+            <a class="link-active" href="#"><span class="icono">⬡</span> Dashboard</a>
+            <a class="link" href=""><span class="icono">⚐</span> Proyectos</a>
+            <a class="link" href=""><span class="icono">✓</span> Tareas</a>
+            <a class="link" href="calendar.html"><span class="icono">◷</span> Calendario</a>
+        </nav>
+
+        <!-- user -->
+        <div class="user" href="">
+            <div class="user-logo">
+                <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="#000000"
+                    style="--darkreader-inline-fill: var(--darkreader-background-000000, #000000);"
+                    data-darkreader-inline-fill="">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <path
+                            d="m 8 1 c -1.65625 0 -3 1.34375 -3 3 s 1.34375 3 3 3 s 3 -1.34375 3 -3 s -1.34375 -3 -3 -3 z m -1.5 7 c -2.492188 0 -4.5 2.007812 -4.5 4.5 v 0.5 c 0 1.109375 0.890625 2 2 2 h 8 c 1.109375 0 2 -0.890625 2 -2 v -0.5 c 0 -2.492188 -2.007812 -4.5 -4.5 -4.5 z m 0 0"
+                            fill="#ffff" style="--darkreader-inline-fill: var(--darkreader-background-2e3436, #26292a);"
+                            data-darkreader-inline-fill=""></path>
+                    </g>
+                </svg>
+            </div>
+            <div class="username">
+                <h2 id="username">Username</h2>
+                <button id="logout">Cerrar sesión</button>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="tasks">
+            <div id="task1" class="task">1</div>
+            <div class="task">2</div>
+            <div class="task">3</div>
+            <div class="task">4</div>
+            <div class="task">5</div>
+            <div class="task">6</div>
+        </div>
+        <div class="tasks">
+            <div class="task">1</div>
+            <div class="task">2</div>
+            <div class="task">3</div>
+            <div class="task">4</div>
+            <div class="task">5</div>
+            <div class="task">6</div>
+        </div>
+    </main>
+    <script src="js/dashboard.js"></script>
 </body>
 
 </html>
