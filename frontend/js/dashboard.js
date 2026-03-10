@@ -24,13 +24,4 @@ if (!sesionRaw == null) {
       window.location.replace("../index.html")
     })
   }
-
-  // 4. NAVEGACIÓN ACTIVA
-  const enlaces = document.querySelectorAll(".navegator a")
-  enlaces.forEach((link) => {
-    link.addEventListener("click", function () {
-      enlaces.forEach((l) => l.classList.remove("link-active"))
-      this.classList.add("link-active")
-    })
-  })
 }
