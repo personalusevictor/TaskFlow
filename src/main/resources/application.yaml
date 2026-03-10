@@ -7,6 +7,8 @@ spring:
     hikari:
       maximum-pool-size: 5
       connection-timeout: 30000
+      data-source-properties:
+        prepareThreshold: 0
 
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
