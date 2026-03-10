@@ -20,30 +20,39 @@
 <body>
 
   <!-- ── Barra lateral izquierda — IDÉNTICA al dashboard ── -->
-  <div class="barra-superior">
-    <a class="logo" href="dashboard.html">
-      <img src="assets/img/favicon/TreeCO.svg" alt="TreeCO logo" class="logo-imagen" width="40" height="40" draggable="false" />
-      <span class="logo-nombre">Tree<span>CO</span></span>
-    </a>
+	<header>
+		<!-- Logo -->
+		<a class="logo" href="dashboard.html">
+			<img src="assets/img/favicon/TreeCO.svg" alt="TreeCO logo" class="logo-img" width="40" height="40"
+				draggable="false" />
+			<span class="logo-name">Tree<span>CO</span></span>
+		</a>
 
-    <nav class="navegador">
-      <a class="enlace" href="dashboard.html"><span class="icono">⬡</span> Dashboard</a>
-      <a class="enlace" href=""><span class="icono">⚐</span> Proyectos</a>
-      <a class="enlace" href=""><span class="icono">✓</span> Tareas</a>
-      <a class="enlace-activo" href="calendar.html"><span class="icono">◷</span> Calendario</a>
-    </nav>
+		<nav class="navegator">
+			<a class="link" href="dashboard.html"><span class="icono">⬡</span> Dashboard</a>
+			<a class="link" href=""><span class="icono">⚐</span> Proyectos</a>
+			<a class="link" href=""><span class="icono">✓</span> Tareas</a>
+			<a class="link-active" href="calendar.html"><span class="icono">◷</span> Calendario</a>
+		</nav>
 
-    <a class="usuario" href="">
-      <div class="usuario-avatar">
-        <img id="nav-avatar" src="" alt="img-usuario" />
-        <span class="usuario-status"></span>
-      </div>
-      <div class="nombre-usuario">
-        <h3 id="nav-name">Nombre</h3>
-        <h4 id="nav-role">Rol</h4>
-      </div>
-    </a>
-  </div>
+		<!-- user -->
+		<a class="user" href="">
+			<div class="user-avatar">
+				<img src="" alt="img-user" />
+				<span class="user-status"></span>
+			</div>
+			<div class="name-user">
+				<h3>Nombre</h3>
+				<h4>Rol</h4>
+			</div>
+		</a>
+	</header>
+	<script>
+		function logout() {
+			sessionStorage.removeItem('treeco_user');
+			window.location.replace('index.html');
+		}
+	</script>
 
   <!-- ── Contenido bajo el header ── -->
   <div class="cal-page">

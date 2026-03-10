@@ -1,5 +1,5 @@
 // dashboard.js - COMPLETO
-const CLAVE_SESION = "usuario_treeco"
+const CLAVE_SESION = "treeco_user"
 
 // 1. COMPROBACIÓN DE SEGURIDAD
 const sesionRaw = localStorage.getItem(CLAVE_SESION)
@@ -26,11 +26,11 @@ if (!sesionRaw == null) {
   }
 
   // 4. NAVEGACIÓN ACTIVA
-  const enlaces = document.querySelectorAll(".navegador a")
+  const enlaces = document.querySelectorAll(".navegator a")
   enlaces.forEach((link) => {
     link.addEventListener("click", function () {
-      enlaces.forEach((l) => l.classList.remove("enlace-activo"))
-      this.classList.add("enlace-activo")
+      enlaces.forEach((l) => l.classList.remove("link-active"))
+      this.classList.add("link-active")
     })
   })
 }

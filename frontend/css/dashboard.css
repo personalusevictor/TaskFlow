@@ -32,7 +32,7 @@ body {
 }
 
 /* ── Barra lateral izquierda ───────────────────────────── */
-.barra-superior {
+header {
   width: 100vw;
   display: flex;
   position: absolute;
@@ -53,7 +53,7 @@ body {
 }
 
 /* ── Logo ──────────────────────────── */
-.barra-superior .logo {
+header .logo {
   display: flex;
   align-items: center;
   gap: var(--space-2);
@@ -61,18 +61,18 @@ body {
   transition: opacity var(--duration-fast) var(--ease-smooth);
 }
 
-.barra-superior .logo:hover {
+header .logo:hover {
   opacity: 0.8;
 }
 
-.barra-superior .logo .logo-imagen {
+header .logo .logo-img {
   width: 32px;
   height: 32px;
   object-fit: contain;
   flex-shrink: 0;
 }
 
-.barra-superior .logo .logo-nombre {
+header .logo .logo-name {
   font-size: 1.55rem;
   font-weight: var(--weight-bold);
   letter-spacing: -0.03em;
@@ -81,19 +81,19 @@ body {
   line-height: 1;
 }
 
-.barra-superior .logo .logo-nombre span {
+header .logo .logo-name span {
   color: var(--color-text-accent);
 }
 
 /* ── Nav ───────────────────────────── */
-.barra-superior .navegador {
+header .navegator {
   display: flex;
   align-items: center;
   gap: var(--space-2);
 }
 
-.barra-superior nav .enlace,
-.barra-superior nav .enlace-activo {
+header nav .link,
+header nav .link-active {
   display: flex;
   align-items: center;
   gap: var(--space-2);
@@ -111,27 +111,27 @@ body {
   white-space: nowrap;
 }
 
-.barra-superior nav .enlace .icono,
-.barra-superior nav .enlace-activo .icono {
+header nav .link .icono,
+header nav .link-active .icono {
   font-size: 0.8rem;
   opacity: 0.7;
   flex-shrink: 0;
 }
 
-.barra-superior nav .enlace:hover {
+header nav .link:hover {
   color: var(--color-text-primary);
   background: var(--color-glass-white);
   border-color: var(--color-glass-border);
 }
 
-.barra-superior nav .enlace-activo {
+header nav .link-active {
   color: var(--color-text-accent);
   background: var(--color-green-faint);
   border-color: var(--color-glass-border);
 }
 
-/* ── Usuario ───────────────────────── */
-.barra-superior .usuario {
+/* ── user ───────────────────────── */
+header .user {
   display: flex;
   align-items: center;
   gap: var(--space-3);
@@ -144,18 +144,18 @@ body {
     border-color var(--duration-fast) var(--ease-smooth);
 }
 
-.barra-superior .usuario:hover {
+header .user:hover {
   background: var(--color-glass-white);
   border-color: var(--color-glass-border);
 }
 
 /* Avatar con indicador de estado */
-.usuario-avatar {
+.user-avatar {
   position: relative;
   flex-shrink: 0;
 }
 
-.usuario-avatar img {
+.user-avatar img {
   width: 34px;
   height: 34px;
   border-radius: var(--radius-full);
@@ -165,8 +165,8 @@ body {
   border: 1.5px solid var(--color-glass-border);
 }
 
-/* Punto verde de "activo" */
-.usuario-status {
+/* Punto verde de "active" */
+.user-status {
   position: absolute;
   bottom: 1px;
   right: 1px;
@@ -178,20 +178,20 @@ body {
   box-shadow: 0 0 6px rgba(61, 220, 132, 0.5);
 }
 
-.nombre-usuario {
+.name-user {
   display: flex;
   flex-direction: column;
   gap: 1px;
 }
 
-.nombre-usuario h3 {
+.name-user h3 {
   font-size: var(--text-sm);
   font-weight: var(--weight-semi);
   color: var(--color-text-primary);
   line-height: 1.2;
 }
 
-.nombre-usuario h4 {
+.name-user h4 {
   font-size: var(--text-xs);
   font-weight: var(--weight-regular);
   color: var(--color-text-secondary);

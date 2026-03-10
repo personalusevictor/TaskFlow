@@ -38,7 +38,7 @@ body {
   justify-content: flex-start;
 }
 
-.barra-superior {
+header {
   position: relative !important;
   top: auto !important;
   left: auto !important;
