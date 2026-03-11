@@ -64,6 +64,23 @@ function initUI() {
   ui.toasts = getById("toast-container")
 }
 
+const CLAVE_SESION = "treeco_user"
+
+const sesionRaw = localStorage.getItem(CLAVE_SESION)
+
+if (!sesionRaw) {
+  globalThis.location.replace("index.html")
+}
+
+let usuario
+
+try {
+  usuario = JSON.parse(sesionRaw)
+} catch {
+  localStorage.removeItem(CLAVE_SESION)
+  globalThis.location.replace("index.html")
+}
+
 /* ══════════════════════════════════════════════════
 			INIT
 	 ══════════════════════════════════════════════════ */
@@ -75,7 +92,7 @@ async function init() {
   state.pickerYear = now.getFullYear()
 
   try {
-    const raw = sessionStorage.getItem("treeco_user")
+    const raw = localStorage.getItem("treeco_user")
     if (raw) {
       state.user = JSON.parse(raw)
       if (ui.navName) ui.navName.textContent = state.user.username || state.user.email || "Usuario"

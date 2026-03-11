@@ -7,12 +7,12 @@
     <title>TreeCO — Autenticación</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/img/favicon/TreeCO.svg" />
-    <link rel="apple-touch-icon" href="assets/img/favicon/TreeCO.svg" />
+    <link rel="icon" type="image/png" href="./assets/img/favicon/TreeCO.svg" />
+    <link rel="apple-touch-icon" href="./assets/img/favicon/TreeCO.svg" />
 
     <!-- Styles -->
-    <link rel="stylesheet" href="css/root.css" />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="./styles/core/root.css" />
+    <link rel="stylesheet" href="./styles/pages/auth.css" />
 </head>
 
 <body>
@@ -31,7 +31,7 @@
 
         <!-- Logo -->
         <div class="logo-wrap" role="banner">
-            <img src="assets/img/favicon/TreeCO.svg" alt="TreeCO logo" class="logo-img" width="40" height="40"
+            <img src="./assets/img/favicon/TreeCO.svg" alt="TreeCO logo" class="logo-img" width="40" height="40"
                 draggable="false" />
             <span class="logo-name">Tree<span>CO</span></span>
         </div>
@@ -118,7 +118,7 @@
                                 <span class="field-error" id="login-password-error" role="alert"></span>
                             </div>
 
-                            <a href="#" class="link-forgot">¿Olvidaste tu contraseña?</a>
+                            <a href="./#" class="link-forgot">¿Olvidaste tu contraseña?</a>
 
                             <button type="submit" class="btn-submit" id="btn-login-submit">
                                 <div class="btn-spinner" aria-hidden="true"></div>
@@ -256,9 +256,6 @@
 
     <!-- Version badge -->
     <div class="version-badge" aria-hidden="true">TreeCO v1.0</div>
-
-    <!-- Script -->
-    <script src="js/auth.js"></script>
 
     <!-- ── MODAL: Verificación de email (registro) ── -->
     <div class="modal-backdrop" id="modal-verify-backdrop" role="dialog" aria-modal="true"
@@ -511,6 +508,9 @@
 
         </div>
     </div>
+
+    <!-- Script -->
+    <script src="./scripts/core/auth.js"></script>
 
 </body>
 

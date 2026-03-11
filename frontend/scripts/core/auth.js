@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════
-  TREECO — Auth Page Logic
+   TREECO — Auth Page Logic
    ═══════════════════════════════════════════════ */
 
 const API_BASE = "http://localhost:8080"
@@ -11,6 +11,7 @@ const state = {
 
 // ── DOM References ───────────────────────────────
 const panelsWrapper = document.getElementById("panels-wrapper")
+const sliderOverlay = document.getElementById("slider-overlay")
 const overlayInner = document.getElementById("overlay-inner")
 
 // Login form
@@ -34,13 +35,16 @@ const panelLogin = document.getElementById("panel-login")
 const panelRegister = document.getElementById("panel-register")
 const mobileToggle = document.querySelector(".mobile-toggle")
 
-const user = JSON.parse(localStorage.getItem("treeco_user"))
-if (user) {
-  globalThis.location.href = "dashboard.html"
+const CLAVE_SESION = "treeco_user"
+
+const sesionRaw = localStorage.getItem(CLAVE_SESION)
+
+if (sesionRaw) {
+  globalThis.location.replace("dashboard.html")
 }
 
 // ── Mode Switcher ────────────────────────────────
-function setMode(newMode) {
+function setMode(newMode, instant = false) {
   if (newMode === state.mode) return
   state.mode = newMode
 
@@ -181,7 +185,7 @@ formLogin.addEventListener("submit", async (e) => {
     showSuccessAndRedirect(btnLoginSubmit, "¡Bienvenido!", () => {
       globalThis.location.href = "dashboard.html"
     })
-  } catch {
+  } catch (err) {
     showBanner(errorLoginBanner, "No se pudo conectar al servidor")
   } finally {
     setLoading(btnLoginSubmit, false)
@@ -231,9 +235,9 @@ formRegister.addEventListener("submit", async (e) => {
     // ✅ Success → abrir modal de verificación de email
     const emailToVerify = inputRegEmail.value.trim()
     showSuccessAndRedirect(btnRegSubmit, "¡Código enviado!", () => {
-      globalThis.openVerifyModal(emailToVerify)
+      window.openVerifyModal(emailToVerify)
     })
-  } catch {
+  } catch (err) {
     showBanner(errorRegBanner, "No se pudo conectar al servidor")
   } finally {
     setLoading(btnRegSubmit, false)
@@ -335,7 +339,7 @@ function initCodeInputs(containerEl) {
     })
 
     input.addEventListener("input", () => {
-      const val = input.value.replaceAll(/\D/g, "")
+      const val = input.value.replace(/\D/g, "")
       input.value = val ? val[0] : ""
       input.classList.toggle("filled", !!input.value)
       if (val && idx < digits.length - 1) digits[idx + 1].focus()
@@ -351,7 +355,7 @@ function initCodeInputs(containerEl) {
 
     input.addEventListener("paste", (e) => {
       e.preventDefault()
-      const pasted = (e.clipboardData || globalThis.clipboardData).getData("text").replaceAll(/\D/g, "").slice(0, 6)
+      const pasted = (e.clipboardData || window.clipboardData).getData("text").replace(/\D/g, "").slice(0, 6)
       pasted.split("").forEach((ch, i) => {
         if (digits[i]) {
           digits[i].value = ch
@@ -439,7 +443,7 @@ function initVerifyModal() {
 
   initCodeInputs(codeInputs)
 
-  globalThis.openVerifyModal = function (email) {
+  window.openVerifyModal = function (email) {
     currentEmail = email
     emailLabel.textContent = email
     modalClearError(errorEl)
@@ -671,7 +675,7 @@ function initResetModal() {
     let s = 0
     if (val.length >= 8) s++
     if (/[A-Z]/.test(val)) s++
-    if (/\d/.test(val)) s++
+    if (/[0-9]/.test(val)) s++
     if (/[^A-Za-z0-9]/.test(val)) s++
     strengthEl.dataset.strength = val.length ? s : "0"
     strengthLbl.textContent = val.length ? ["", "Débil", "Regular", "Buena", "Fuerte"][s] : "Introduce una contraseña"
