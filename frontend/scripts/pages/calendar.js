@@ -647,6 +647,12 @@ function bindEvents() {
       case "ArrowRight":
         navigate(+1)
         break
+			case "ArrowUp":
+				navigateY(1)
+				break
+			case "ArrowDown":
+				navigateY(-1)
+				break
       case "t":
       case "T":
         goToday()
@@ -682,6 +688,14 @@ function navigate(delta) {
     anchorDate.setDate(anchorDate.getDate() + delta * 7)
     state.selectedDate = new Date(anchorDate)
   }
+  render()
+}
+
+function navigateY(delta) {
+  const d = new Date(state.currentDate)
+  d.setFullYear(d.getFullYear() + delta)
+  state.currentDate = d
+
   render()
 }
 

@@ -27,7 +27,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class TokenEmailService {
 
     //  Hay que cambiar FROM_ADRESS por el correo una vez lo tengamos Raul (debe coincidir con spring.mail.username)
-    private static final String FROM_ADDRESS = "";
+    private static final String FROM_ADDRESS = "treeco.support@gmail.com";
 
     /**
      * Almacén temporal de registros pendientes de verificar.
@@ -116,6 +116,7 @@ public class TokenEmailService {
         }
 
         User newUser = new User(pending.username(), pending.email(), pending.rawPassword());
+				newUser.setEmailVerified(true);
         userRepository.save(newUser);
         pendingRegistrations.remove(emailKey);
 
