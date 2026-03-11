@@ -64,23 +64,6 @@ function initUI() {
   ui.toasts = getById("toast-container")
 }
 
-const CLAVE_SESION = "treeco_user"
-
-const sesionRaw = localStorage.getItem(CLAVE_SESION)
-
-if (!sesionRaw) {
-  globalThis.location.replace("index.html")
-}
-
-let usuario
-
-try {
-  usuario = JSON.parse(sesionRaw)
-} catch {
-  localStorage.removeItem(CLAVE_SESION)
-  globalThis.location.replace("index.html")
-}
-
 /* ══════════════════════════════════════════════════
 			INIT
 	 ══════════════════════════════════════════════════ */
