@@ -2,51 +2,6 @@
    TREECO — calendar.css
    ═══════════════════════════════════════════════ */
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-html {
-  font-size: 16px;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* ── Body ─────────────────────────────────────── */
-body {
-  font-family: var(--font-sans);
-  background:
-    radial-gradient(
-      ellipse 80% 60% at 20% 80%,
-      rgba(20, 60, 35, 0.55) 0%,
-      transparent 60%
-    ),
-    radial-gradient(
-      ellipse 60% 50% at 80% 20%,
-      rgba(15, 45, 28, 0.45) 0%,
-      transparent 60%
-    ),
-    var(--color-bg-deep);
-  color: var(--color-text-primary);
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: flex-start;
-}
-
-header {
-  position: relative !important;
-  top: auto !important;
-  left: auto !important;
-  width: 100% !important; /* ocupa todo el ancho */
-  flex-shrink: 0;
-  z-index: 50;
-}
-
 /* ── Glass ────────────────────────────────────── */
 .glass-card {
   background: var(--color-glass-white);

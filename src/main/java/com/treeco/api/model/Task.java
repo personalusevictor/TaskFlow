@@ -2,7 +2,7 @@ package com.treeco.api.model;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import javax.swing.event.DocumentEvent.EventType;
+import com.treeco.api.model.enums.EventType;
 import com.treeco.api.model.enums.Priority;
 import com.treeco.api.model.enums.State;
 import com.treeco.api.model.enums.TaskType;

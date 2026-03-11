@@ -1,32 +1,3 @@
-@import url("root.css");
-
-/* ── Base ───────────────────────────── */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  font-size: 16px;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-body {
-  font-family: var(--font-sans);
-  background: radial-gradient(ellipse 80% 60% at 20% 80%, rgba(20, 60, 35, 0.55) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 80% 20%, rgba(15, 45, 28, 0.45) 0%, transparent 60%), radial-gradient(ellipse 100% 80% at 50% 50%, rgba(8, 20, 12, 0.8) 0%, transparent 70%), var(--color-bg-deep);
-  color: var(--color-text-primary);
-  min-height: 100vh;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-
 /* ── Barra lateral izquierda ───────────────────────────── */
 header {
   width: 100vw;
@@ -128,27 +99,4 @@ header .user .username button {
 header .user .username button:hover {
   color: var(--color-text-primary);
   transition: all var(--duration-fast) var(--ease-smooth);
-}
-
-/* ── Main ───────────────────────────── */
-main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: var(--space-20);
-  gap: var(--space-20);
-}
-
-main .tasks {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid;
-  gap: 8rem;
-  width: 50rem;
-  align-items: center;
-  padding: var(--space-8);
-}
-
-main .tasks .task {
-  display: flex;
 }
