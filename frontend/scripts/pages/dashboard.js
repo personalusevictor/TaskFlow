@@ -19,7 +19,7 @@ async function loadTasks() {
 
     if (pendingTasks.length === 0) {
       tasksListElement.innerHTML = `
-        <section class="noTask">
+        <div class="noTask">
           <div class="noTaskIcon">✓</div>
     
           <p class="noTaskSubtitle">Todo completado</p>
@@ -39,7 +39,7 @@ async function loadTasks() {
               Crear nueva tarea
             </a>
           </div>
-        </section>
+        </div>
       `
       return
     }
