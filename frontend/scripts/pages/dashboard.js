@@ -12,8 +12,7 @@ async function loadTasks() {
   try {
     const currentSessionUser = getUser()
     const userId = currentSessionUser?.userId ?? currentSessionUser?.id
-    const [tasks, projects] = await Promise.all([api.users.getTasks(userId), api.projects.getByUser(userId)])
-    const projectsMap = createProjectsMap(projects)
+    const [tasks] = await Promise.all([api.users.getTasks(userId), api.projects.getByUser(userId)])
     const pendingTasks = tasks.filter((task) => task.completed === false).sort(sortTasksByDeadline)
 
     if (pendingTasks.length === 0) {
@@ -44,7 +43,7 @@ async function loadTasks() {
     }
 
     pendingTasks.forEach((task) => {
-      const taskDivElement = createTaskCard(task, projectsMap)
+      const taskDivElement = createTaskCard(task)
       tasksListElement.appendChild(taskDivElement)
     })
   } catch (error) {
@@ -54,22 +53,6 @@ async function loadTasks() {
       tasksListElement.innerHTML = `<p>Error al cargar las tareas: ${error.message}</p>`
     }
   }
-}
-
-function createProjectsMap(projects) {
-  const projectsMap = {}
-
-  if (!Array.isArray(projects)) {
-    return projectsMap
-  }
-
-  projects.forEach((project) => {
-    if (project?.id != null) {
-      projectsMap[project.id] = project.name ?? "Proyecto sin nombre"
-    }
-  })
-
-  return projectsMap
 }
 
 function sortTasksByDeadline(task1, task2) {
