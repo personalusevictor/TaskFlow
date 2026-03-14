@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
   loadTasks()
 })
 
+// ------------- LOAD TASKS ---------------
+
 async function loadTasks() {
   const tasksListElement = document.getElementById("list-tasks")
 
@@ -43,7 +45,7 @@ async function loadTasks() {
     }
 
     pendingTasks.forEach((task) => {
-      const taskDivElement = createTaskCard(task)
+      const taskDivElement = createTask(task)
       tasksListElement.appendChild(taskDivElement)
     })
   } catch (error) {
@@ -55,6 +57,44 @@ async function loadTasks() {
   }
 }
 
+// Añade al html las tareas
+
+function createTask(task) {
+  const taskDivElement = document.createElement("Div")
+  taskDivElement.classList.add("task")
+
+  const priorityClass = getPriorityClass(task.priority)
+  const remainingTimeClass = getRemainingTimeClass(getRemainingTime(task))
+  const deadlineText = formatDate(task.dateDeadline)
+  const stateText = formatState(task.state)
+  const remainingTime = formatRemainingTime(getRemainingTime(task))
+
+  taskDivElement.innerHTML = `
+    <div class="task-header">
+      <h3 class="task-title">${task.title ?? "Sin título"}</h3>
+      <span class="task-priority ${priorityClass}">
+        ${task.priority ?? "SIN PRIORIDAD"}
+      </span>
+    </div>
+
+    <p class="task-project-title">${task.projectName ?? "Sin proyecto"}</p>
+
+    <p class="task-description">
+      ${task.description ?? "Sin descripción"}
+    </p>
+
+    <div class="task-footer">
+      <span class="task-state">${stateText}</span>
+      <span class="task-remainingTime ${remainingTimeClass}">${remainingTime}</span>
+      <span class="task-deadline">${deadlineText}</span>
+    </div>
+  `
+
+  return taskDivElement
+}
+
+// Ordeanar por fecha de entrega
+
 function sortTasksByDeadline(task1, task2) {
   const task1DeadlineTime = task1?.dateDeadline ? new Date(task1.dateDeadline).getTime() : Number.MAX_SAFE_INTEGER
   const task2DeadlineTime = task2?.dateDeadline ? new Date(task2.dateDeadline).getTime() : Number.MAX_SAFE_INTEGER
@@ -62,10 +102,51 @@ function sortTasksByDeadline(task1, task2) {
   return task1DeadlineTime - task2DeadlineTime
 }
 
+// Obtener tiempo restante
+
 function getRemainingTime(task) {
   const taskDeadlineTime = task?.dateDeadline ? new Date(task.dateDeadline).getTime() : Number.MAX_SAFE_INTEGER
 
   return taskDeadlineTime - Date.now()
+}
+
+// Obtener clases dependiendo de x situacion
+
+function getPriorityClass(priority) {
+  const priorityValue = String(priority ?? "").toLowerCase()
+
+  if (priorityValue === "high") return "priority-high"
+  if (priorityValue === "mid") return "priority-mid"
+  if (priorityValue === "low") return "priority-low"
+
+  return "priority-default"
+}
+
+function getRemainingTimeClass(remainingTime) {
+  if (remainingTime > 0) return "remainingTimeGood"
+  if (remainingTime <= 0) return "remainingTimeBad"
+}
+
+// Formatear datos
+
+function formatState(state) {
+  if (!state) return "Sin estado"
+
+  return state
+    .toLowerCase()
+    .split("_")
+    .map((statePart) => statePart.charAt(0).toUpperCase() + statePart.slice(1))
+    .join(" ")
+}
+
+function formatDate(dateString) {
+  if (!dateString) {
+    return "Sin fecha límite"
+  }
+
+  const deadlineDate = new Date(dateString)
+
+  return deadlineDate.toLocaleDateString("es-ES")
 }
 
 function formatRemainingTime(ms) {
@@ -86,82 +167,4 @@ function formatRemainingTime(ms) {
   }
 
   return ms > 0 ? `Tiempo restante: ${minutes}m` : `Vencida hace ${minutes}m`
-}
-
-function createTaskCard(task) {
-  const taskDivElement = document.createElement("Div")
-  taskDivElement.classList.add("task")
-
-  const projectName = getProjectName(task)
-  const priorityClass = getPriorityClass(task.priority)
-  const remainingTimeClass = getRemainingTimeClass(getRemainingTime(task))
-  const deadlineText = formatDate(task.dateDeadline)
-  const stateText = formatState(task.state)
-  const remainingTime = formatRemainingTime(getRemainingTime(task))
-
-  taskDivElement.innerHTML = `
-    <div class="task-header">
-      <h3 class="task-title">${task.title ?? "Sin título"}</h3>
-      <span class="task-priority ${priorityClass}">
-        ${task.priority ?? "SIN PRIORIDAD"}
-      </span>
-    </div>
-
-    <p class="task-project-title">${projectName}</p>
-
-    <p class="task-description">
-      ${task.description ?? "Sin descripción"}
-    </p>
-
-    <div class="task-footer">
-      <span class="task-state">${stateText}</span>
-      <span class="task-remainingTime ${remainingTimeClass}">${remainingTime}</span>
-      <span class="task-deadline">${deadlineText}</span>
-    </div>
-  `
-
-  return taskDivElement
-}
-
-function getProjectName(task) {
-  if (task?.projectName) {
-    return task.projectName
-  }
-
-  return "Sin proyecto"
-}
-
-function getPriorityClass(priority) {
-  const priorityValue = String(priority ?? "").toLowerCase()
-
-  if (priorityValue === "high") return "priority-high"
-  if (priorityValue === "mid") return "priority-mid"
-  if (priorityValue === "low") return "priority-low"
-
-  return "priority-default"
-}
-
-function getRemainingTimeClass(remainingTime) {
-  if (remainingTime > 0) return "remainingTimeGood"
-  if (remainingTime <= 0) return "remainingTimeBad"
-}
-
-function formatState(state) {
-  if (!state) return "Sin estado"
-
-  return state
-    .toLowerCase()
-    .split("_")
-    .map((statePart) => statePart.charAt(0).toUpperCase() + statePart.slice(1))
-    .join(" ")
-}
-
-function formatDate(dateString) {
-  if (!dateString) {
-    return "Sin fecha límite"
-  }
-
-  const deadlineDate = new Date(dateString)
-
-  return deadlineDate.toLocaleDateString("es-ES")
 }
