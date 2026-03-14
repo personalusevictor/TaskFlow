@@ -13,7 +13,7 @@ async function loadTasks() {
 
   try {
     const currentSessionUser = getUser()
-    const userId = currentSessionUser?.userId ?? currentSessionUser?.id
+    const userId = currentSessionUser?.userId
     const [tasks] = await Promise.all([api.users.getTasks(userId), api.projects.getByUser(userId)])
     const pendingTasks = tasks.filter((task) => task.completed === false).sort(sortTasksByDeadline)
 
@@ -153,7 +153,7 @@ function formatDate(dateString) {
 }
 
 function formatRemainingTime(ms) {
-  if (ms === Number.MAX_SAFE_INTEGER) return "Sin fecha limite"
+  if (ms >= Number.MAX_SAFE_INTEGER) return "Sin fecha limite"
 
   const abs = Math.abs(ms)
 
