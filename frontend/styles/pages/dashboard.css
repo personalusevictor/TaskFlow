@@ -47,7 +47,7 @@ main {
 }
 
 /* --- Parte superior de las tareas --- */
-.task-header {
+.taskHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -55,7 +55,7 @@ main {
 }
 
 /* Titulo Tarea */
-.task-title {
+.taskTitle {
   margin: 0;
   color: var(--color-text-primary);
   font-size: var(--text-lg);
@@ -67,7 +67,7 @@ main {
 }
 
 /* Titulo Proyecto */
-.task-project-title {
+.taskProjectTitle {
   margin: 0;
   color: var(--color-text-accent);
   font-size: var(--text-sm);
@@ -76,7 +76,7 @@ main {
 }
 
 /* Descripción Tarea */
-.task-description {
+.taskDescription {
   margin: 0;
   color: var(--color-text-secondary);
   font-size: var(--text-sm);
@@ -85,7 +85,7 @@ main {
 }
 
 /* --- Parte inferior de las tareas --- */
-.task-footer {
+.taskFooter {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -94,9 +94,9 @@ main {
   margin-top: var(--space-2);
 }
 
-.task-state,
-.task-deadline,
-.task-remainingTime {
+.taskState,
+.taskDeadline,
+.taskRemainingTime {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -115,19 +115,7 @@ main {
   white-space: nowrap;
 }
 
-.remainingTimeGood {
-  background-color: var(--color-green-faint);
-  border-color: var(--color-green-primary);
-  color: var(--color-text-accent);
-}
-
-.remainingTimeBad {
-  background-color: var(--color-red-faint);
-  border-color: var(--color-red-primary);
-  color: var(--color-text-accent-red);
-}
-
-.task-priority {
+.taskPriority {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -142,30 +130,30 @@ main {
   white-space: nowrap;
 }
 
-.priority-high {
-  color: #ff8f8f;
-  border-color: rgba(255, 80, 80, 0.45);
-  background: rgba(255, 80, 80, 0.12);
+.red {
+  background-color: var(--color-red-faint);
+  border-color: var(--color-red-primary);
+  color: var(--color-text-accent-red);
   box-shadow: inset 0 0 0 1px rgba(255, 80, 80, 0.05);
 }
 
-.priority-mid {
-  color: #ffd27a;
-  border-color: rgba(255, 183, 0, 0.38);
-  background: rgba(255, 183, 0, 0.12);
+.orange {
+  background-color: var(--color-orange-faint);
+  border-color: var(--color-orange-primary);
+  color: var(--color-text-accent-orange);
   box-shadow: inset 0 0 0 1px rgba(255, 183, 0, 0.04);
 }
 
-.priority-low {
-  color: #7ef0ae;
-  border-color: rgba(61, 220, 132, 0.35);
-  background: rgba(61, 220, 132, 0.1);
+.green {
+  background-color: var(--color-green-faint);
+  border-color: var(--color-green-primary);
+  color: var(--color-text-accent);
   box-shadow: inset 0 0 0 1px rgba(61, 220, 132, 0.04);
 }
 
 /* ── Sin tareas ───────────────────────────── */
 
-.no-task {
+.noTask {
   min-height: 58vh;
   width: 100%;
   display: flex;
@@ -184,7 +172,7 @@ main {
 }
 
 /* Icono */
-.no-task-icon {
+.noTaskIcon {
   width: 84px;
   height: 84px;
   display: flex;
@@ -204,7 +192,7 @@ main {
 }
 
 /* Texto superior */
-.no-task-subtitle {
+.noTaskSubtitle {
   margin: 0 0 var(--space-2);
   color: var(--color-text-accent);
   font-size: var(--text-sm);
@@ -214,7 +202,7 @@ main {
 }
 
 /* Título */
-.no-task-title {
+.noTaskTitle {
   margin: 0 0 var(--space-4);
   color: var(--color-text-primary);
   font-size: 1.8rem;
@@ -224,7 +212,7 @@ main {
 }
 
 /* Descripción */
-.no-task-text {
+.noTaskText {
   margin: 0 0 var(--space-8);
   max-width: 640px;
   color: var(--color-text-secondary);
@@ -233,7 +221,7 @@ main {
 }
 
 /* Contenedor botones */
-.no-task-go-tasks {
+.noTaskGoTasks {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -242,7 +230,7 @@ main {
 }
 
 /* Botón principal */
-.no-task-go-task {
+.noTaskGoTask {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -268,7 +256,7 @@ main {
     background var(--duration-fast) var(--ease-smooth);
 }
 
-.no-task-go-task:hover {
+.noTaskGoTask:hover {
   transform: translateY(-2px);
   background: rgba(61, 220, 132, 0.18);
   border-color: rgba(61, 220, 132, 0.4);
@@ -276,7 +264,7 @@ main {
 }
 
 /* Botón secundario */
-.no-task-create-task {
+.noTaskCreateTask {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -299,7 +287,7 @@ main {
     background var(--duration-fast) var(--ease-smooth);
 }
 
-.no-task-create-task:hover {
+.noTaskCreateTask:hover {
   transform: translateY(-2px);
   border-color: var(--color-glass-border-hover);
   background: rgba(255, 255, 255, 0.08);

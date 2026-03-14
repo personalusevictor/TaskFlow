@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // ------------- LOAD TASKS ---------------
 
 async function loadTasks() {
-  const tasksListElement = document.getElementById("list-tasks")
+  const tasksListElement = document.getElementById("listTasks")
 
   try {
     const currentSessionUser = getUser()
@@ -19,23 +19,23 @@ async function loadTasks() {
 
     if (pendingTasks.length === 0) {
       tasksListElement.innerHTML = `
-        <section class="no-task">
-          <div class="no-task-icon">✓</div>
+        <section class="noTask">
+          <div class="noTaskIcon">✓</div>
     
-          <p class="no-task-subtitle">Todo completado</p>
+          <p class="noTaskSubtitle">Todo completado</p>
     
-          <h2 class="no-task-title">No tienes tareas pendientes</h2>
+          <h2 class="noTaskTitle">No tienes tareas pendientes</h2>
     
-          <p class="no-task-text">
+          <p class="noTaskText">
             Todo está al día. Crea una nueva tarea para empezar a organizar tu trabajo
             y verla aquí ordenada por fecha de finalización.
           </p>
     
-          <div class="no-task-go-tasks">
-            <a href="./../../task.html" class="no-task-go-task">
+          <div class="noTaskGoTasks">
+            <a href="./../../task.html" class="noTaskGoTask">
               Ir a tareas
             </a>
-            <a href="./../../task.html" class="no-task-create-task">
+            <a href="./../../task.html" class="noTaskCreateTask">
               Crear nueva tarea
             </a>
           </div>
@@ -70,23 +70,23 @@ function createTask(task) {
   const remainingTime = formatRemainingTime(getRemainingTime(task))
 
   taskDivElement.innerHTML = `
-    <div class="task-header">
-      <h3 class="task-title">${task.title ?? "Sin título"}</h3>
-      <span class="task-priority ${priorityClass}">
+    <div class="taskHeader">
+      <h3 class="taskTitle">${task.title ?? "Sin título"}</h3>
+      <span class="taskPriority ${priorityClass}">
         ${task.priority ?? "SIN PRIORIDAD"}
       </span>
     </div>
 
-    <p class="task-project-title">${task.projectName ?? "Sin proyecto"}</p>
+    <p class="taskProjectTitle">${task.projectName ?? "Sin proyecto"}</p>
 
-    <p class="task-description">
+    <p class="taskDescription">
       ${task.description ?? "Sin descripción"}
     </p>
 
-    <div class="task-footer">
-      <span class="task-state">${stateText}</span>
-      <span class="task-remainingTime ${remainingTimeClass}">${remainingTime}</span>
-      <span class="task-deadline">${deadlineText}</span>
+    <div class="taskFooter">
+      <span class="taskState">${stateText}</span>
+      <span class="taskRemainingTime ${remainingTimeClass}">${remainingTime}</span>
+      <span class="taskDeadline">${deadlineText}</span>
     </div>
   `
 
@@ -115,16 +115,19 @@ function getRemainingTime(task) {
 function getPriorityClass(priority) {
   const priorityValue = String(priority ?? "").toLowerCase()
 
-  if (priorityValue === "high") return "priority-high"
-  if (priorityValue === "mid") return "priority-mid"
-  if (priorityValue === "low") return "priority-low"
+  if (priorityValue === "high") return "red"
+  if (priorityValue === "mid") return "orange"
+  if (priorityValue === "low") return "green"
 
   return "priority-default"
 }
 
 function getRemainingTimeClass(remainingTime) {
-  if (remainingTime > 0) return "remainingTimeGood"
-  if (remainingTime <= 0) return "remainingTimeBad"
+  const sevenDays = 7 * 24 * 60 * 60 * 1000
+
+  if (remainingTime <= 0) return "red"
+  if (remainingTime < sevenDays && remainingTime > 0) return "orange"
+  if (remainingTime > sevenDays) return "green"
 }
 
 // Formatear datos
