@@ -3,7 +3,6 @@ package com.treeco.api.controller;
 import com.treeco.api.model.Project;
 import com.treeco.api.repository.ProjectRepository;
 import com.treeco.api.repository.UserRepository;
-import com.treeco.api.service.ProjectMemberService;
 import com.treeco.api.service.ProjectService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,16 +19,13 @@ public class ProjectController {
     private final ProjectRepository projectRepository;
     private final UserRepository userRepository;
     private final ProjectService projectService;
-    private final ProjectMemberService projectMemberService;
 
     public ProjectController(ProjectRepository projectRepository,
                              UserRepository userRepository,
-                             ProjectService projectService,
-                             ProjectMemberService projectMemberService) {
+                             ProjectService projectService) {
         this.projectRepository = projectRepository;
         this.userRepository = userRepository;
         this.projectService = projectService;
-        this.projectMemberService = projectMemberService;
     }
 
     public record ProjectRequest(String name, String description, Integer userId) {
