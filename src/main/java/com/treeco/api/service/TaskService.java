@@ -1,6 +1,6 @@
 package com.treeco.api.service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -87,7 +87,7 @@ public class TaskService {
         if (priority == null)
             throw new IllegalArgumentException("La prioridad no puede ser null");
         findProjectOrThrow(projectId);
-        return taskRepository.findByProjectIdAndPriority(projectId, priority);
+        return taskRepository.findByProjectId(projectId);
     }
 
     /**
@@ -110,12 +110,11 @@ public class TaskService {
      */
     @Transactional
     public Task createTask(Integer projectId, String title, String description,
-            Priority priority, LocalDate dateDeadline) {
+            Priority priority, LocalDateTime dateDeadline) {
         Project project = findProjectOrThrow(projectId);
 
         Task task = Task.builder(title)
                 .description(description)
-                .priority(priority)
                 .deadline(dateDeadline)
                 .build();
 
@@ -130,12 +129,11 @@ public class TaskService {
      */
     @Transactional
     public Task createCodeTask(Integer projectId, String title, String description,
-            Priority priority, LocalDate dateDeadline) {
+            Priority priority, LocalDateTime dateDeadline) {
         Project project = findProjectOrThrow(projectId);
 
         Task task = Task.builder(title)
                 .description(description)
-                .priority(priority)
                 .deadline(dateDeadline)
                 .type(TaskType.CODE)
                 .build();
@@ -152,7 +150,7 @@ public class TaskService {
     @Transactional
     public Task updateTask(Integer projectId, Integer taskId, String title,
             String description, Priority priority,
-            LocalDate dateDeadline, Boolean completed) {
+            LocalDateTime dateDeadline, Boolean completed) {
         Task task = findById(taskId, projectId);
 
         if (title != null && !title.isBlank())
@@ -160,7 +158,6 @@ public class TaskService {
         if (description != null)
             task.setDescription(description);
         if (priority != null)
-            task.setPriority(priority);
         if (dateDeadline != null)
             task.setDateDeadline(dateDeadline);
         if (completed != null)
