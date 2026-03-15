@@ -1,14 +1,14 @@
 package com.treeco.api.dto.user;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class TaskResponseDto {
 
     private Integer id;
     private String title;
     private String description;
-    private LocalDate dateCreation;
-    private LocalDate dateDeadline;
+    private LocalDateTime dateCreation;
+    private LocalDateTime dateDeadline;
     private String priority;
     private Boolean completed;
     private String state;
@@ -44,19 +44,19 @@ public class TaskResponseDto {
         this.description = description;
     }
 
-    public LocalDate getDateCreation() {
+    public LocalDateTime getDateCreation() {
         return dateCreation;
     }
 
-    public void setDateCreation(LocalDate dateCreation) {
+    public void setDateCreation(LocalDateTime dateCreation) {
         this.dateCreation = dateCreation;
     }
 
-    public LocalDate getDateDeadline() {
+    public LocalDateTime getDateDeadline() {
         return dateDeadline;
     }
 
-    public void setDateDeadline(LocalDate dateDeadline) {
+    public void setDateDeadline(LocalDateTime dateDeadline) {
         this.dateDeadline = dateDeadline;
     }
 

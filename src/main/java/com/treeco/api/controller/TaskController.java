@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -28,10 +28,10 @@ public class TaskController {
         this.projectRepository = projectRepository;
     }
 
-    public record TaskRequest(String title, String description, Priority priority, LocalDate dateDeadline) {
+    public record TaskRequest(String title, String description, Priority priority, LocalDateTime dateDeadline) {
     }
 
-    public record TaskUpdateRequest(String title, String description, Priority priority, LocalDate dateDeadline,
+    public record TaskUpdateRequest(String title, String description, Priority priority, LocalDateTime dateDeadline,
             Boolean completed) {
     }
 
@@ -48,7 +48,7 @@ public class TaskController {
             if (orderByDate) {
                 tasks = taskRepository.findByProjectIdOrderByDateDeadlineAsc(projectId);
             } else if (priority != null) {
-                tasks = taskRepository.findByProjectIdAndPriority(projectId, priority);
+                tasks = taskRepository.findByProjectId(projectId);
             } else {
                 tasks = taskRepository.findByProjectId(projectId);
             }
@@ -95,7 +95,6 @@ public class TaskController {
 
             Task task = Task.builder(request.title())
                     .description(request.description())
-                    .priority(request.priority())
                     .deadline(request.dateDeadline())
                     .build();
 
@@ -129,8 +128,6 @@ public class TaskController {
                 task.setTitle(request.title());
             if (request.description() != null)
                 task.setDescription(request.description());
-            if (request.priority() != null)
-                task.setPriority(request.priority());
             if (request.dateDeadline() != null)
                 task.setDateDeadline(request.dateDeadline());
             if (request.completed() != null)
