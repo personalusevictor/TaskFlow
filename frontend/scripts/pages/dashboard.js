@@ -45,6 +45,11 @@ async function loadTasks() {
     }
 
     pendingTasks.forEach((task) => {
+      const THIRTY_DAYS = 30 * 24 * 60 * 60 * 1000
+      const remaining = getRemainingTime(task)
+
+      if (remaining < 0 && Math.abs(remaining) > THIRTY_DAYS) return
+
       const taskDivElement = createTask(task)
       tasksListElement.appendChild(taskDivElement)
     })
@@ -60,11 +65,10 @@ async function loadTasks() {
 // Añade al html las tareas
 
 function createTask(task) {
-  const taskDivElement = document.createElement("Div")
+  const taskDivElement = document.createElement("div")
   taskDivElement.classList.add("task")
 
   const priorityClass = getPriorityClass(task.priority)
-  const remainingTimeClass = getRemainingTimeClass(getRemainingTime(task))
   const deadlineText = formatDate(task.dateDeadline)
   const stateText = formatState(task.state)
   const remainingTime = formatRemainingTime(getRemainingTime(task))
@@ -85,7 +89,7 @@ function createTask(task) {
 
     <div class="taskFooter">
       <span class="taskState">${stateText}</span>
-      <span class="taskRemainingTime ${remainingTimeClass}">${remainingTime}</span>
+      <span class="taskRemainingTime ${priorityClass}">${remainingTime}</span>
       <span class="taskDeadline">${deadlineText}</span>
     </div>
   `
@@ -122,14 +126,6 @@ function getPriorityClass(priority) {
   return "priority-default"
 }
 
-function getRemainingTimeClass(remainingTime) {
-  const sevenDays = 7 * 24 * 60 * 60 * 1000
-
-  if (remainingTime <= 0) return "red"
-  if (remainingTime < sevenDays && remainingTime > 0) return "orange"
-  if (remainingTime > sevenDays) return "green"
-}
-
 // Formatear datos
 
 function formatState(state) {
@@ -149,7 +145,14 @@ function formatDate(dateString) {
 
   const deadlineDate = new Date(dateString)
 
-  return deadlineDate.toLocaleDateString("es-ES")
+  return deadlineDate
+    .toLocaleString("es-ES", {
+      day: "2-digit",
+      month: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    })
+    .replace(",", "")
 }
 
 function formatRemainingTime(ms) {
@@ -157,16 +160,18 @@ function formatRemainingTime(ms) {
 
   const abs = Math.abs(ms)
 
-  const minutes = Math.floor(abs / (1000 * 60))
-  const hours = Math.floor(abs / (1000 * 60 * 60))
-  const days = Math.ceil(abs / (1000 * 60 * 60 * 24))
+  const days = Math.floor(abs / (1000 * 60 * 60 * 24))
+  const hours = Math.floor((abs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+  const minutes = Math.floor((abs % (1000 * 60 * 60)) / (1000 * 60))
 
-  if (days > 0) {
-    return ms > 0 ? `Tiempo restante: ${days}d` : `Vencida hace ${days}d`
+  if (days >= 1) {
+    const text = hours > 0 ? `${days}d ${hours}h` : `${days}d`
+    return ms > 0 ? `Tiempo restante: ${text}` : `Vencida hace ${text}`
   }
 
-  if (hours > 0) {
-    return ms > 0 ? `Tiempo restante: ${hours}h` : `Vencida hace ${hours}h`
+  if (hours >= 1) {
+    const text = minutes > 0 ? `${hours}h ${minutes}m` : `${hours}h`
+    return ms > 0 ? `Tiempo restante: ${text}` : `Vencida hace ${text}`
   }
 
   return ms > 0 ? `Tiempo restante: ${minutes}m` : `Vencida hace ${minutes}m`
