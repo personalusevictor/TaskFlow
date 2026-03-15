@@ -85,11 +85,24 @@
 		 } catch (exception) {
 			 console.warn("user:", exception)
 		 }
+
+		 // Leer projectId desde URL si viene de projects.html
+		 const urlParams = new URLSearchParams(window.location.search)
+		 const urlProjectId = urlParams.get("projectId")
+		 if (urlProjectId) {
+			 state.projectId = urlProjectId
+		 }
 	 
 		 bindEvents()
 		 render()
 	 
 		 await loadProjects()
+
+		 // Aplicar filtro de proyecto en el select si vino por URL
+		 if (state.projectId && ui.projSel) {
+			 ui.projSel.value = state.projectId
+		 }
+
 		 await loadTasks()
 		 render()
 	 }
@@ -118,18 +131,49 @@
 		 setLoading(true)
 		 state.tasks = []
 		 try {
-			 const list = state.projectId ? state.projects.filter((p) => String(p.id) === state.projectId) : state.projects
-			 const settled = await Promise.allSettled(list.map((p) => fetch(`${API_BASE}/projects/${p.id}/tasks`).then((r) => (r.ok ? r.json() : []))))
+			 const myId = state.user?.userId || state.user?.id
+			 const myIdNum = Number(myId)
+
+			 let projectsToLoad = []
+
+			 if (state.projectId) {
+				 projectsToLoad = [{ id: Number(state.projectId), name: "" }]
+				 const found = state.projects.find(p => String(p.id) === String(state.projectId))
+				 if (found) projectsToLoad = [found]
+			 } else {
+				 projectsToLoad = state.projects
+			 }
+
+			 const settled = await Promise.allSettled(
+				 projectsToLoad.map(async (p) => {
+					 const res = await fetch(`${API_BASE}/projects/${p.id}/tasks`)
+					 if (!res.ok) return []
+					 // Parseo seguro — captura JSON malformado
+					 try {
+						 return await res.json()
+					 } catch (parseErr) {
+						 console.error(`JSON inválido en proyecto ${p.id}:`, parseErr)
+						 toast("Error leyendo tareas del servidor. ¿Está aplicado TaskController.java?", "err")
+						 return []
+					 }
+				 })
+			 )
+
 			 settled.forEach((r, i) => {
-				 if (r.status === "fulfilled") {
+				 if (r.status === "fulfilled" && Array.isArray(r.value)) {
 					 r.value.forEach((t) => {
-						 t._pName = list[i].name
-						 t._pId = list[i].id
+						 t._pName = projectsToLoad[i].name || ""
+						 t._pId = projectsToLoad[i].id
 					 })
-					 state.tasks.push(...r.value)
+					 const filtered = r.value.filter(t => {
+						 if (!t.assignedTo) return false
+						 return Number(t.assignedTo.id) === myIdNum
+					 })
+					 state.tasks.push(...filtered)
 				 }
 			 })
-		 } catch {
+		 } catch (e) {
+			 console.error("loadTasks error:", e)
 			 toast("Error cargando tareas", "err")
 		 } finally {
 			 setLoading(false)
