@@ -8,10 +8,6 @@ export function requireAuth() {
   }
 }
 
-// ======================================================
-// Helpers internos
-// ======================================================
-
 function buildUrl(path, query = {}) {
   const url = new URL(`${BASE_URL}${path}`)
 
@@ -293,7 +289,6 @@ export const projectMembersApi = {
 
 export const tasksApi = {
   getAll(projectId, filters = {}) {
-    // filters posibles:
     // { state: "TODO", priority: "HIGH", orderByDate: true }
     return get(`/projects/${projectId}/tasks`, filters)
   },
@@ -312,7 +307,6 @@ export const tasksApi = {
   },
 
   update(projectId, taskId, { title, description, priority, dateDeadline, completed }) {
-    // OJO: en tu controller es PATCH
     return patch(`/projects/${projectId}/tasks/${taskId}`, {
       title,
       description,
